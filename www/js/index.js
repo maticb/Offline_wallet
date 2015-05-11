@@ -84,7 +84,7 @@ function startScan() {
 
 document.addEventListener("deviceready", init, false);
 function init() {
-    document.querySelector("#startScan").addEventListener("touchend", startScan, false);
+    document.querySelector("#skeniraj_btn").addEventListener("touchend", startScan, false);
    
 }
 
