@@ -2,13 +2,8 @@ var resultDiv;
 
 document.addEventListener("deviceready", init, false);
 function init() {
-    document.querySelector("#skeniraj_btn").addEventListener("touchend", startScan, false);
+    document.querySelector("#startScan").addEventListener("touchend", startScan, false);
     resultDiv = document.querySelector("#ls_test_o");
-
-    $("#ls_test_o").html(window.localStorage.getItem("ls_test"));
-    $("#ls_test_i").on('input', function () {
-        window.localStorage.setItem("ls_test", $("#ls_test_i").val());
-    });
 }
 
 function startScan() {
