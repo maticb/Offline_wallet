@@ -45,17 +45,17 @@ http://stackoverflow.com/questions/26283135/working-qr-code-scanner-for-phonegap
 
 
                 $("#skeniraj_btn").on("click", function () {
-                    var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-                     
-                     scanner.scan(function (result) {
-                     
-                     alert("We got a barcode\n" +
-                     "Result: " + result.text + "\n" +
-                     "Format: " + result.format + "\n" +
-                     "Cancelled: " + result.cancelled);
-                     }, function (error) {
-                     console.log("Scanning failed: ", error);
-                     });
+                    cordova.plugins.barcodeScanner.scan(
+                            function (result) {
+                                alert("We got a barcode\n" +
+                                        "Result: " + result.text + "\n" +
+                                        "Format: " + result.format + "\n" +
+                                        "Cancelled: " + result.cancelled);
+                            },
+                            function (error) {
+                                alert("Scanning failed: " + error);
+                            }
+                    );
                     alert("frak of");
                 });
                 $("#ls_test_i").on('input', function () {
