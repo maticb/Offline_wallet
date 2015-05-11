@@ -15,35 +15,70 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+ *//*
+  var app = {
+  // Application Constructor
+  initialize: function() {
+  this.bindEvents();
+  },
+  // Bind Event Listeners
+  //
+  // Bind any events that are required on startup. Common events are:
+  // 'load', 'deviceready', 'offline', and 'online'.
+  bindEvents: function() {
+  document.addEventListener('deviceready', this.onDeviceReady, false);
+  },
+  // deviceready Event Handler
+  //
+  // The scope of 'this' is the event. In order to call the 'receivedEvent'
+  // function, we must explicitly call 'app.receivedEvent(...);'
+  onDeviceReady: function() {
+  app.receivedEvent('deviceready');
+  },
+  // Update DOM on a Received Event
+  receivedEvent: function(id) {
+  var parentElement = document.getElementById(id);
+  var listeningElement = parentElement.querySelector('.listening');
+  var receivedElement = parentElement.querySelector('.received');
+  
+  listeningElement.setAttribute('style', 'display:none;');
+  receivedElement.setAttribute('style', 'display:block;');
+  
+  console.log('Received Event: ' + id);
+  }
+  };
+  */
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+$(document).ready(function () {
+  
 
-        console.log('Received Event: ' + id);
-    }
-};
+});
+
+
+document.addEventListener("deviceready", init, false);
+function init() {
+    document.querySelector("#skeniraj_btn").addEventListener("touchend", startScan, false);
+      $("#ls_test_o").html(window.localStorage.getItem("ls_test"));
+
+    $("#ls_test_i").on('input', function () {
+        window.localStorage.setItem("ls_test", $("#ls_test_i").val());
+
+    });
+}
+
+
+function startScan() {
+
+    cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                var s = "Result: " + result.text + "<br/>" +
+                        "Format: " + result.format + "<br/>" +
+                        "Cancelled: " + result.cancelled;
+                alert(s);
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+    );
+
+}
