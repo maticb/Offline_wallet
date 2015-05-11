@@ -36,14 +36,15 @@ http://stackoverflow.com/questions/26283135/working-qr-code-scanner-for-phonegap
 
 
         <script type="text/javascript">
-          //  var scanner = cordova.require("com.phonegap.plugins.barcodescanner.barcodescanner");
+           var scanner = cordova.require("com.phonegap.plugins.barcodescanner.barcodescanner");
 
 
             $(document).ready(function () {
                 $("#ls_test_o").html(window.localStorage.getItem("ls_test"));
-                
-                
-               /* $("#skeniraj_btn").on("click", function () {
+
+
+                $("#skeniraj_btn").on("click", function () {
+                    alert("btn");
                     scanner.scan(
                             function (result) {
                                 alert("We got a barcode\n" +
@@ -55,10 +56,10 @@ http://stackoverflow.com/questions/26283135/working-qr-code-scanner-for-phonegap
                                 alert("Scanning failed: " + error);
                             }
                     );
-                });*/
-                $("#ls_test_i").on('input',function(){
+                });
+                $("#ls_test_i").on('input', function () {
                     window.localStorage.setItem("ls_test", $("#ls_test_i").val());
-                    alert($("#ls_test_i").val());
+
                 });
 
             });
