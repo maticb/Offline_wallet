@@ -46,7 +46,8 @@ http://stackoverflow.com/questions/26283135/working-qr-code-scanner-for-phonegap
 
                 $("#skeniraj_btn").on("click", function () {
                     alert("frak of1");
-                    cordova.plugins.barcodeScanner.scan(
+                    var scanner = cordova.require("com.phonegap.plugins.barcodescanner.barcodescanner");
+                    scanner.scan(
                             function (result) {
                                 alert("We got a barcode\n" +
                                         "Result: " + result.text + "\n" +
