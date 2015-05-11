@@ -33,40 +33,6 @@ http://stackoverflow.com/questions/26283135/working-qr-code-scanner-for-phonegap
         <script src="js/jquery.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>  
-        <script type="text/javascript" src="barcodescanner.js"></script>
-
-
-        <script type="text/javascript">
-
-
-
-            $(document).ready(function () {
-                $("#ls_test_o").html(window.localStorage.getItem("ls_test"));
-
-
-                $("#skeniraj_btn").on("click", function () {
-                    alert("frak of1");
-                    var scanner = cordova.require("com.phonegap.plugins.barcodescanner.barcodescanner");
-                    scanner.scan(
-                            function (result) {
-                                alert("We got a barcode\n" +
-                                        "Result: " + result.text + "\n" +
-                                        "Format: " + result.format + "\n" +
-                                        "Cancelled: " + result.cancelled);
-                            },
-                            function (error) {
-                                alert("Scanning failed: " + error);
-                            }
-                    );
-                    alert("frak of");
-                });
-                $("#ls_test_i").on('input', function () {
-                    window.localStorage.setItem("ls_test", $("#ls_test_i").val());
-
-                });
-
-            });
-        </script>
         <title>Wallet</title>
     </head>
     <body>
@@ -74,5 +40,6 @@ http://stackoverflow.com/questions/26283135/working-qr-code-scanner-for-phonegap
         <button style="width:200px;height:100px;" id="skeniraj_btn">Skeniraj</button>
         <input  type="text" id="ls_test_i" />
         <div id="ls_test_o"></div>
+        <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
