@@ -48,19 +48,19 @@
   }
   };
   */
-
-$(document).ready(function () {
-});
-
-
+/*
 document.addEventListener("deviceready", init, false);
+
+ $(document).ready(function () {
+ });
+
+
+
 function init() {
     document.querySelector("#skeniraj_btn").addEventListener("touchend", startScan, false);
-      $("#ls_test_o").html(window.localStorage.getItem("ls_test"));
-
+    $("#ls_test_o").html(window.localStorage.getItem("ls_test"));
     $("#ls_test_i").on('input', function () {
         window.localStorage.setItem("ls_test", $("#ls_test_i").val());
-
     });
 }
 
@@ -77,6 +77,29 @@ function startScan() {
             function (error) {
                 alert("Scanning failed: " + error);
             }
+    );
+
+}*/
+
+
+document.addEventListener("deviceready", init, false);
+function init() {
+    document.querySelector("#startScan").addEventListener("touchend", startScan, false);
+   
+}
+
+function startScan() {
+
+    cordova.plugins.barcodeScanner.scan(
+        function (result) {
+            var s = "Result: " + result.text + "<br/>" +
+            "Format: " + result.format + "<br/>" +
+            "Cancelled: " + result.cancelled;
+           alert(s);
+        }, 
+        function (error) {
+            alert("Scanning failed: " + error);
+        }
     );
 
 }
