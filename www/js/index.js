@@ -5,6 +5,7 @@ function init() {
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
     document.getElementById('input').addEventListener("input", update_localstorage, false);
     resultDiv = document.querySelector("#output");
+    
     document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
 
 
