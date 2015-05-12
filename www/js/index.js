@@ -11,7 +11,7 @@ function init() {
 }
 
 function startScan() {
-
+    alert("FRAK OF");
     cordova.plugins.barcodeScanner.scan(
             function (result) {
                 var s = "Result: " + result.text + "<br/>" +
