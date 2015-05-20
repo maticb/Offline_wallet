@@ -6,6 +6,8 @@ function wallet() {
     this.coini = [];
 }
 
+var fileObject;
+
 
 document.addEventListener("deviceready", init, false);
 function init() {
@@ -18,32 +20,41 @@ function init() {
 
 ///
 
-
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
 }
 
 //-------------------------------
-function writeLog(str) {
-	if(!logOb) return;
-	var log = str + " [" + (new Date()) + "]\n";
-	console.log("going to log "+log);
-	logOb.createWriter(function(fileWriter) {
-		
-		fileWriter.seek(fileWriter.length);
-		
-		var blob = new Blob([log], {type:'text/plain'});
-		fileWriter.write(blob);
-		console.log("ok, in theory i worked");
-	}, fail);
+
+function onFileSystemSuccess(fileSystem) {
+    fileSystem.root.getFile("readme.txt",
+            {create: true, exclusive: false},
+    gotFileEntry, fail);
+}
+function gotFileEntry(fileEntry) {
+    fileObject = fileEntry;
+    document.getElementById('saveFile_btn').addEventListener("touchend", saveFileContent, false);
 }
 
-window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) {
-    alert(dir);
-    dir.getFile("log.txt", {create: true}, function (file) {
-        console.log("got the file", file);
-        logOb = file;
-        writeLog("App started");
-    });
-});
+function saveFileContent() {
+    fileObject.createWriter(gotFileWriter, fail);
+}
+
+function gotFileWriter(writer) {
+    var myText = "matic je car";
+    writer.write(myText);
+    writer.onwriteend = function (evt) {
+        alert(fileObject.fullPath);
+        var reader = new FileReader();
+        reader.readAsText(fileObject);
+
+    };
+}
+
+
+function fail(error)
+{
+    alert(error.code);
+}
 
 //---------------------------------
 function startScan() {
@@ -59,7 +70,7 @@ function startScan() {
                 alert("Scanning failed: " + error);
             }
     );
-     writeLog("skeniranje");
+
 
 }
 function update_localstorage() {
