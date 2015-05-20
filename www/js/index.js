@@ -42,7 +42,7 @@ function gotFileEntry(fileEntry) {
 
 function gotFileWriter(writer) {
     alert("gotFileWriter");
-    writer.onwriteend = function (evt) {
+    /*writer.onwriteend = function (evt) {
         console.log("contents of file now 'some sample text'");
         writer.truncate(11);
         writer.onwriteend = function (evt) {
@@ -53,8 +53,8 @@ function gotFileWriter(writer) {
                 console.log("contents of file now 'some different text'");
             }
         };
-    };
-    writer.write("some sample text");
+    };*/
+    writer.write("matic je car");
     alert("gotFileWriter1");
 }
 
