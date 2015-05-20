@@ -32,11 +32,12 @@ function onDeviceReady() {
 
 function gotFS(fileSystem) {
     fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
-    alert("GOTFS");
+    alert("GOTFS: " + fileSystem.root);
 }
 
 function gotFileEntry(fileEntry) {
     fileEntry.createWriter(gotFileWriter, fail);
+    alert("gotFileEntry");
 }
 
 function gotFileWriter(writer) {
