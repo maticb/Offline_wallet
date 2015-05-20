@@ -19,41 +19,52 @@ function init() {
     document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
 
 ///
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, loadDirectories, fail);
 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
 }
 
 //-------------------------------
 
-function onFileSystemSuccess(fileSystem) {
-    fileSystem.root.getFile("readme.txt",
-            {create: true, exclusive: false},
-    gotFileEntry, fail);
-}
-function gotFileEntry(fileEntry) {
-    fileObject = fileEntry;
-    document.getElementById('saveFile_btn').addEventListener("touchend", saveFileContent, false);
+function displayMessage(msg)
+{
+    navigator.notification.alert(msg);
 }
 
-function saveFileContent() {
-    fileObject.createWriter(gotFileWriter, fail);
-}
+function loadDirectories(fileSystem)
+{
+    directoryEntry = fileSystem.root;
 
-function gotFileWriter(writer) {
-    var myText = "matic je car";
-    writer.write(myText);
-    writer.onwriteend = function (evt) {
-        alert(fileObject.fullPath);
+    var directoryReader = directoryEntry.createReader();
+
+    directoryReader.readEntries(function (entries) {
+        var sOutput = "";
+        for (var i = 0; i < entries.length; i++)
+        {
+            if (!entries[i].isDirectory)
+            {
+                fileSystem.root.getFile(entries[i].name, null, gotFileEntry, fail);
+            }
+        }
+        //displayMessage(sOutput);
+    }, fail);
+}
+function gotFileEntry(fileEntry)
+{
+    fileEntry.file(function (file) {
         var reader = new FileReader();
-        reader.readAsText(fileObject);
-
-    };
+        reader.onloadend = function (evt) {
+            displayMessage(evt.target.result);
+        };
+        reader.readAsText(file);
+    }, fail);
 }
-
-
+function failFile(evt)
+{
+    displayMessage(evt.target.error.code);
+}
 function fail(error)
 {
-    alert(error.code);
+    displayMessage("Failed to list directory contents: " + error.code);
 }
 
 //---------------------------------
