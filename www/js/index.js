@@ -17,17 +17,35 @@ function init() {
     document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
 
 ///
-    writeFileFromSDCard("matic je car");
+
 
 }
 
-function writeFileFromSDCard(param) {
-
-    var writer = new FileWriter("/sdcard/write.txt");
-    writer.write(param + "\n", false);
-    alert("file Written to SD Card");
+//-------------------------------
+function writeLog(str) {
+	if(!logOb) return;
+	var log = str + " [" + (new Date()) + "]\n";
+	console.log("going to log "+log);
+	logOb.createWriter(function(fileWriter) {
+		
+		fileWriter.seek(fileWriter.length);
+		
+		var blob = new Blob([log], {type:'text/plain'});
+		fileWriter.write(blob);
+		console.log("ok, in theory i worked");
+	}, fail);
 }
 
+window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) {
+    console.log("got main dir", dir);
+    dir.getFile("log.txt", {create: true}, function (file) {
+        console.log("got the file", file);
+        logOb = file;
+        writeLog("App started");
+    });
+});
+
+//---------------------------------
 function startScan() {
 
     cordova.plugins.barcodeScanner.scan(
@@ -41,6 +59,7 @@ function startScan() {
                 alert("Scanning failed: " + error);
             }
     );
+     writeLog("skeniranje");
 
 }
 function update_localstorage() {
