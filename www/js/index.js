@@ -19,7 +19,7 @@ function init() {
     document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
 
 ///
-    document.addEventListener("deviceready", onDeviceReady, false);
+   onDeviceReady();
 
 }
 
