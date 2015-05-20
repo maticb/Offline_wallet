@@ -6,7 +6,7 @@ function wallet() {
     this.coini = [];
 }
 
-var fileObject;
+
 
 
 document.addEventListener("deviceready", init, false);
@@ -19,54 +19,10 @@ function init() {
     document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
 
 ///
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, loadDirectories, fail);
 
 }
 
 //-------------------------------
-
-function displayMessage(msg)
-{
-    navigator.notification.alert(msg);
-}
-
-function loadDirectories(fileSystem)
-{
-    directoryEntry = fileSystem.root;
-
-    var directoryReader = directoryEntry.createReader();
-
-    directoryReader.readEntries(function (entries) {
-        var sOutput = "";
-        for (var i = 0; i < entries.length; i++)
-        {
-            if (!entries[i].isDirectory)
-            {
-                fileSystem.root.getFile(entries[i].name, null, gotFileEntry, fail);
-            }
-        }
-        //displayMessage(sOutput);
-    }, fail);
-}
-function gotFileEntry(fileEntry)
-{
-    fileEntry.file(function (file) {
-        var reader = new FileReader();
-        reader.onloadend = function (evt) {
-            displayMessage(evt.target.result);
-        };
-        reader.readAsText(file);
-    }, fail);
-}
-function failFile(evt)
-{
-    displayMessage(evt.target.error.code);
-}
-function fail(error)
-{
-    displayMessage("Failed to list directory contents: " + error.code);
-}
-
 //---------------------------------
 function startScan() {
 
