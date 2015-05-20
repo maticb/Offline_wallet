@@ -6,6 +6,7 @@ function wallet() {
     this.coini = [];
 }
 
+
 document.addEventListener("deviceready", init, false);
 function init() {
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
@@ -15,7 +16,16 @@ function init() {
 
     document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
 
+///
+    writeFileFromSDCard("matic je car");
 
+}
+
+function writeFileFromSDCard(param) {
+
+    var writer = new FileWriter("/sdcard/write.txt");
+    writer.write(param + "\n", false);
+    alert("file Written to SD Card");
 }
 
 function startScan() {
