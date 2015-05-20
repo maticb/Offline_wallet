@@ -19,7 +19,7 @@ function init() {
     document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
 
 ///
-   onDeviceReady();
+    onDeviceReady();
 
 }
 
@@ -41,6 +41,7 @@ function gotFileEntry(fileEntry) {
 }
 
 function gotFileWriter(writer) {
+    alert("gotFileWriter");
     writer.onwriteend = function (evt) {
         console.log("contents of file now 'some sample text'");
         writer.truncate(11);
@@ -54,6 +55,7 @@ function gotFileWriter(writer) {
         };
     };
     writer.write("some sample text");
+    alert("gotFileWriter1");
 }
 
 function fail(error) {
