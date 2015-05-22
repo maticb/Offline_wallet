@@ -26,7 +26,7 @@ function init() {
     var ustvarjen = window.localStorage.getItem("ustvarjen");
     if (ustvarjen === null)//wallet ni ustvarjen
     {
-        importimportWallet();
+        importWallet();
       /*  var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
         show_popup(s, false, false);
         document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
