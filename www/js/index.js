@@ -20,8 +20,12 @@ function init() {
     document.getElementById('qr_koda').addEventListener("touchend", qr_create, false);
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
 
-    var ustvarjen = window.localStorage.getItem("ls_test");
-    alert("-" + ustvarjen + "-");
+    var ustvarjen = window.localStorage.getItem("ustvarjen");
+    if(ustvarjen === null)
+    {
+           alert("ni walleta");
+    }
+ 
 
 
 }
