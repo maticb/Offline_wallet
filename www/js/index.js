@@ -28,6 +28,8 @@ function init() {
     {
         var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
         show_popup(s, false, false);
+        document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
+        document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);
     }
 
 
@@ -123,4 +125,46 @@ function show_popup(noter, height, width)
 function hide_popup(noter, height, width)
 {
     document.getElementById('popup_general').style.display = "none";
+}
+
+function importWallet()
+{
+    alert("import");
+    var path = localStorage['lastPath'] || 'file:///storage/';
+// Constructor takes FileSelector(elem, path, masks, success, fail, cancel, menu, pathChanged, openFile)
+// Only elem is really required, but you'll have to provide the path sooner or later anyway.
+// If you don't provide a mask *.* will be used
+    var fileSelector = new FileSelector(document.getElementById('container'), path, 'Documents (html, txt)|*.htm;*.html;*.txt|All files|*.*');
+// Mask can be changed later using setMasks method.
+    fileSelector.onCancel = function (e) // Fires on the back button
+    {
+        // Add code for closing the file selector, going one folder back (like below) or something else
+        $(fileSelector.elem).find('.file-container .item.back').click();
+        e.stop(); // prevent other backbutton event listners from firing
+    };
+    fileSelector.onSuccess = function (path)
+    {
+        // If you click on a file, this function will be called with the name of the file
+    };
+    fileSelector.onPathChanged = function (path)
+    {
+        // Each time you change directory this callback will be launched (here we're saving lastpath in local storage)
+        localStorage['lastPath'] = path;
+    };
+    fileSelector.onFail = function (error)
+    {
+        // If something goes wrong this code will be executed
+        alert(error.message);
+    };
+// There are also onMenu() and onOpenFile(fileEntry, path) callbacks.
+// First is called when you press menu button, the other when path leads to a file and not a directory.
+
+// Make the selector load file\directory list from a path (if no path is provided, component will try using previous path)
+    fileSelector.open(path);
+// Directories and files will be alphabetically ordered and directories will be listed before the files.
+}
+
+function createNewWallet()
+{
+    alert("new ");
 }
