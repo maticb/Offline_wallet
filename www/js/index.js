@@ -93,6 +93,12 @@ function readAsText(file) {
     var reader = new FileReader();
     reader.onloadend = function (evt) {
         alert(evt.target.result);
+        alert(evt);
+
+        //TODO:SKRIJ IMPORT POPUP
+       // $("#container").css("display", "none");
+       // $("#container").css("z-index", "-10");
+
     };
     reader.readAsText(file);
 }
