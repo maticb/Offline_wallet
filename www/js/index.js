@@ -7,6 +7,7 @@ function wallet() {
 var denarnica = new wallet();
 var izpis = "matic";
 var url = ""; //TODO ??
+var branje_file = "";
 
 //LOCAL STORAGE
 //document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
@@ -68,12 +69,40 @@ function gotFileWriter(writer) {
 
 }
 
-function fail(error) {
-    alert(error.code);
-}
+
 
 //---------------------------------
 
+function readFile() {
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS_read, fail);
+}
+
+function gotFS_read(fileSystem) {
+    fileSystem.root.getFile(branje_file, null, gotFileEntry_read, fail);
+}
+
+function gotFileEntry_read(fileEntry) {
+    fileEntry.file(gotFile, fail);
+}
+
+function gotFile(file) {
+    readAsText(file);
+}
+
+function readAsText(file) {
+    var reader = new FileReader();
+    reader.onloadend = function (evt) {
+        alert(evt.target.result);
+    };
+    reader.readAsText(file);
+}
+
+
+//---------------------------------
+function fail(error) {
+    alert(error.code);
+}
+//---------------------------------
 
 function startScan() {
 
@@ -150,7 +179,15 @@ function importWallet()
     fileSelector.onSuccess = function (path)
     {
         // If you click on a file, this function will be called with the name of the file
-        alert("Izbrana:" + path);
+
+        var r = confirm("Izbrana:" + path);
+        if (r === true) {
+            branje_file = path;
+            readFile();
+        }
+
+
+
     };
     fileSelector.onPathChanged = function (path)
     {
