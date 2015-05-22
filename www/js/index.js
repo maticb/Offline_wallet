@@ -134,7 +134,7 @@ function importWallet()
 // Constructor takes FileSelector(elem, path, masks, success, fail, cancel, menu, pathChanged, openFile)
 // Only elem is really required, but you'll have to provide the path sooner or later anyway.
 // If you don't provide a mask *.* will be used
-    var fileSelector = new FileSelector(document.getElementById('container'), path, 'Documents (html, txt)|*.htm;*.html;*.txt|All files|*.*');
+    var fileSelector = new FileSelector(document.getElementById('container'), path, 'All files|*.*'); //Documents (html, txt)|*.htm;*.html;*.txt|
 
     $("#container").css("display", "block");
 
