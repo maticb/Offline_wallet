@@ -20,7 +20,7 @@ function init() {
     document.getElementById('saveWallet').addEventListener("touchend", saveWallet, false);
 
     //PC DEBUGGING
-    document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
+    //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     //--
 
     var ustvarjen = window.localStorage.getItem("ustvarjen");
@@ -123,7 +123,7 @@ function show_popup(noter, height, width)
     document.getElementById('popup_general').style.display = "block";
 }
 
-function hide_popup(noter, height, width)
+function hide_popup()
 {
     document.getElementById('popup_general').style.display = "none";
 }
@@ -136,7 +136,9 @@ function importWallet()
 // If you don't provide a mask *.* will be used
     var fileSelector = new FileSelector(document.getElementById('container'), path, 'Documents (html, txt)|*.htm;*.html;*.txt|All files|*.*');
 
-    $("#container").css("display:block;z-index:10;");
+    $("#container").css("display", "block");
+
+    $("#container").css("z-index", "10");
 
 // Mask can be changed later using setMasks method.
     fileSelector.onCancel = function (e) // Fires on the back button
