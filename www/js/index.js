@@ -21,10 +21,7 @@ function init() {
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
 
     var ustvarjen = window.localStorage.getItem("ls_test");
-    if(ustvarjen === undefined)
-    {
-        alert(ustvarjen +", undef");
-    }
+    alert("-" + ustvarjen + "-");
 
 
 }
@@ -84,7 +81,7 @@ function startScan() {
 }
 
 
-function qr_create(url)
+function qr_create()
 {
     var qrcode = new QRCode("output2");
 
