@@ -1,61 +1,64 @@
-var resultDiv;
-
 function wallet() {
     this.uname = "";
     this.pass = "";
     this.coini = [];
 }
 
+var denarnica = new wallet();
+var izpis = "matic";
 
+//LOCAL STORAGE
+//document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
+// window.localStorage.setItem("ls_test", document.getElementById('input').value);
 
 
 document.addEventListener("deviceready", init, false);
 function init() {
-    document.getElementById('startScan').addEventListener("touchend", startScan, false);
-    document.getElementById('input').addEventListener("input", update_localstorage, false);
+
+
+    //document.getElementById('input').addEventListener("input", update_localstorage, false);
     document.getElementById('qr_koda').addEventListener("touchend", qr_create, false);
-    resultDiv = document.querySelector("#output");
+    document.getElementById('startScan').addEventListener("touchend", startScan, false);
 
-    document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
+    var ustvarjen = window.localStorage.getItem("ls_test");
+    if(ustvarjen === undefined)
+    {
+        alert(ustvarjen +", undef");
+    }
 
-///
-    onDeviceReady();
 
 }
 
 //---------------------------------
 // retrieves root file system entry
 
-function onDeviceReady() {
+function EXPORT_FILE() {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
 }
 
 function gotFS(fileSystem) {
     fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
-    alert("GOTFS: " + fileSystem.root);
 }
 
 function gotFileEntry(fileEntry) {
     fileEntry.createWriter(gotFileWriter, fail);
-    alert("gotFileEntry");
 }
 
 function gotFileWriter(writer) {
-    alert("gotFileWriter");
     /*writer.onwriteend = function (evt) {
-        console.log("contents of file now 'some sample text'");
-        writer.truncate(11);
-        writer.onwriteend = function (evt) {
-            console.log("contents of file now 'some sample'");
-            writer.seek(4);
-            writer.write(" different text");
-            writer.onwriteend = function (evt) {
-                console.log("contents of file now 'some different text'");
-            }
-        };
-    };*/
-    writer.write("matic je car");
-    alert("gotFileWriter1");
+     console.log("contents of file now 'some sample text'");
+     writer.truncate(11);
+     writer.onwriteend = function (evt) {
+     console.log("contents of file now 'some sample'");
+     writer.seek(4);
+     writer.write(" different text");
+     writer.onwriteend = function (evt) {
+     console.log("contents of file now 'some different text'");
+     }
+     };
+     };*/
+    writer.write(izpis);
+
 }
 
 function fail(error) {
@@ -70,7 +73,7 @@ function startScan() {
                 var s = "Result: " + result.text + "<br/>" +
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
-                resultDiv.innerHTML = s;
+                document.querySelector("#output").innerHTML = s;
             },
             function (error) {
                 alert("Scanning failed: " + error);
@@ -79,17 +82,15 @@ function startScan() {
 
 
 }
-function update_localstorage() {
-    window.localStorage.setItem("ls_test", document.getElementById('input').value);
-}
 
-function qr_create()
+
+function qr_create(url)
 {
     var qrcode = new QRCode("output2");
 
     function makeCode() {
 
-        qrcode.makeCode("test");
+        qrcode.makeCode(url);
     }
 
     makeCode();
