@@ -6,6 +6,7 @@ function wallet() {
 
 var denarnica = new wallet();
 var izpis = "matic";
+var url = ""; //TODO ??
 
 //LOCAL STORAGE
 //document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
@@ -14,18 +15,20 @@ var izpis = "matic";
 
 document.addEventListener("deviceready", init, false);
 function init() {
-
-
-    //document.getElementById('input').addEventListener("input", update_localstorage, false);
     document.getElementById('qr_koda').addEventListener("touchend", qr_create, false);
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
+    document.getElementById('saveWallet').addEventListener("touchend", saveWallet, false);
+
+    //PC DEBUGGING
+    document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
+    //--
 
     var ustvarjen = window.localStorage.getItem("ustvarjen");
-    if(ustvarjen === null)
+    if (ustvarjen === null)//wallet ni ustvarjen
     {
-           alert("ni walleta");
+        var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
+        show_popup(s, false, false);
     }
- 
 
 
 }
@@ -38,7 +41,7 @@ function EXPORT_FILE() {
 }
 
 function gotFS(fileSystem) {
-    fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+    fileSystem.root.getFile("wallet.txt", {create: true, exclusive: false}, gotFileEntry, fail);
 }
 
 function gotFileEntry(fileEntry) {
@@ -67,6 +70,8 @@ function fail(error) {
 }
 
 //---------------------------------
+
+
 function startScan() {
 
     cordova.plugins.barcodeScanner.scan(
@@ -95,4 +100,27 @@ function qr_create()
     }
 
     makeCode();
+}
+
+function saveWallet()
+{
+    var s = JSON.stringify(denarnica);
+    izpis = s;
+    EXPORT_FILE();
+}
+
+function show_popup(noter, height, width)
+{
+    if (height !== false)
+        document.getElementById('popup_general').style.height = height;
+    if (width !== false)
+        document.getElementById('popup_general').style.width = width;
+
+    document.getElementById('popup_general').innerHTML = noter;
+    document.getElementById('popup_general').style.display = "block";
+}
+
+function hide_popup(noter, height, width)
+{
+    document.getElementById('popup_general').style.display = "none";
 }
