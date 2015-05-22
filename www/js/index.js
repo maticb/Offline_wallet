@@ -27,10 +27,10 @@ function init() {
     if (ustvarjen === null)//wallet ni ustvarjen
     {
         importWallet();
-      /*  var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
-        show_popup(s, false, false);
-        document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
-        document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);*/
+        /*  var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
+         show_popup(s, false, false);
+         document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
+         document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);*/
     }
 
 
@@ -130,12 +130,14 @@ function hide_popup(noter, height, width)
 
 function importWallet()
 {
-    alert("import");
     var path = localStorage['lastPath'] || 'file:///storage/';
 // Constructor takes FileSelector(elem, path, masks, success, fail, cancel, menu, pathChanged, openFile)
 // Only elem is really required, but you'll have to provide the path sooner or later anyway.
 // If you don't provide a mask *.* will be used
     var fileSelector = new FileSelector(document.getElementById('container'), path, 'Documents (html, txt)|*.htm;*.html;*.txt|All files|*.*');
+
+    $("#container").css("display:block;z-index:10;");
+
 // Mask can be changed later using setMasks method.
     fileSelector.onCancel = function (e) // Fires on the back button
     {
@@ -146,6 +148,7 @@ function importWallet()
     fileSelector.onSuccess = function (path)
     {
         // If you click on a file, this function will be called with the name of the file
+        alert("Izbrana:" + path);
     };
     fileSelector.onPathChanged = function (path)
     {
