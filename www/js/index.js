@@ -20,6 +20,7 @@ function init() {
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
     document.getElementById('saveWallet').addEventListener("touchend", saveWallet, false);
 
+    saveWallet();
     //PC DEBUGGING
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     //--
@@ -82,8 +83,10 @@ function gotFile(fileEntry) {
         var reader = new FileReader;
         reader.onloadend = function (e) {
             //console.log("Text is: " + this.result);
-            document.querySelector("#output").innerHTML = this.result;
-
+            // document.querySelector("#output").innerHTML = this.result;
+            var json = this.result;
+            wallet = JSON.parse(json);
+            document.querySelector("#output").innerHTML = "this.result:" + wallet.uname;
             $("#container").css("display", "none");
             $("#container").css("z-index", "-10");
         };
@@ -129,6 +132,7 @@ function qr_create()
 
 function saveWallet()
 {
+    denarnica.uname = "moj usernam";
     var s = JSON.stringify(denarnica);
     izpis = s;
     EXPORT_FILE();
@@ -152,6 +156,8 @@ function hide_popup()
 
 function importWallet()
 {
+    hide_popup();
+
     var path = localStorage['lastPath'] || 'file:///storage/';
     // Constructor takes FileSelector(elem, path, masks, success, fail, cancel, menu, pathChanged, openFile)
     // Only elem is really required, but you'll have to provide the path sooner or later anyway.
@@ -202,6 +208,8 @@ function importWallet()
 
 function createNewWallet()
 {
+    hide_popup();
+
     alert("new ");
 }
 
