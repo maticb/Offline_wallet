@@ -93,11 +93,9 @@ function readAsText(file) {
     var reader = new FileReader();
     reader.onloadend = function (evt) {
         alert(evt.target.result);
-        alert(evt);
-
         //TODO:SKRIJ IMPORT POPUP
-       // $("#container").css("display", "none");
-       // $("#container").css("z-index", "-10");
+        // $("#container").css("display", "none");
+        // $("#container").css("z-index", "-10");
 
     };
     reader.readAsText(file);
@@ -166,16 +164,16 @@ function hide_popup()
 function importWallet()
 {
     var path = localStorage['lastPath'] || 'file:///storage/';
-// Constructor takes FileSelector(elem, path, masks, success, fail, cancel, menu, pathChanged, openFile)
-// Only elem is really required, but you'll have to provide the path sooner or later anyway.
-// If you don't provide a mask *.* will be used
+    // Constructor takes FileSelector(elem, path, masks, success, fail, cancel, menu, pathChanged, openFile)
+    // Only elem is really required, but you'll have to provide the path sooner or later anyway.
+    // If you don't provide a mask *.* will be used
     var fileSelector = new FileSelector(document.getElementById('container'), path, 'All files|*.*'); //Documents (html, txt)|*.htm;*.html;*.txt|
 
     $("#container").css("display", "block");
 
     $("#container").css("z-index", "10");
 
-// Mask can be changed later using setMasks method.
+    // Mask can be changed later using setMasks method.
     fileSelector.onCancel = function (e) // Fires on the back button
     {
         // Add code for closing the file selector, going one folder back (like below) or something else
@@ -189,7 +187,8 @@ function importWallet()
         var r = confirm("Izbrana:" + path);
         if (r === true) {
             branje_file = path;
-            readFile();
+            //readFile();
+            read_file_new();
         }
 
 
@@ -205,15 +204,35 @@ function importWallet()
         // If something goes wrong this code will be executed
         alert(error.message);
     };
-// There are also onMenu() and onOpenFile(fileEntry, path) callbacks.
-// First is called when you press menu button, the other when path leads to a file and not a directory.
+    // There are also onMenu() and onOpenFile(fileEntry, path) callbacks.
+    // First is called when you press menu button, the other when path leads to a file and not a directory.
 
-// Make the selector load file\directory list from a path (if no path is provided, component will try using previous path)
+    // Make the selector load file\directory list from a path (if no path is provided, component will try using previous path)
     fileSelector.open(path);
-// Directories and files will be alphabetically ordered and directories will be listed before the files.
+    // Directories and files will be alphabetically ordered and directories will be listed before the files.
 }
 
 function createNewWallet()
 {
     alert("new ");
+}
+
+function read_file_new()
+{
+    window.resolveLocalFileSystemURL(branje_file, gotFile, fail);
+}
+function fail(e) {
+    console.log("FileSystem Error");
+    console.dir(e);
+}
+
+function gotFile(fileEntry) {
+    fileEntry.file(function (file) {
+        var reader = new FileReader;
+        reader.onloadend = function (e) {
+            console.log("Text is: " + this.result);
+            document.querySelector("#output").innerHTML = this.result;
+        };
+        reader.readAsText(file);
+    });
 }
