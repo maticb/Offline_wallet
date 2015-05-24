@@ -33,8 +33,6 @@ function init() {
         document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
         document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);
     }
-
-
 }
 
 //---------------------------------
@@ -53,23 +51,8 @@ function gotFileEntry(fileEntry) {
 }
 
 function gotFileWriter(writer) {
-    /*writer.onwriteend = function (evt) {
-     console.log("contents of file now 'some sample text'");
-     writer.truncate(11);
-     writer.onwriteend = function (evt) {
-     console.log("contents of file now 'some sample'");
-     writer.seek(4);
-     writer.write(" different text");
-     writer.onwriteend = function (evt) {
-     console.log("contents of file now 'some different text'");
-     }
-     };
-     };*/
     writer.write(izpis);
-
 }
-
-
 
 //---------------------------------
 
@@ -180,7 +163,7 @@ function importWallet()
     {
         // If you click on a file, this function will be called with the name of the file
 
-        var r = confirm("Izbrana:" + path);
+        var r = confirm("Izbrana denarnica:" + path);
         if (r === true) {
             branje_file = path;
             readFile();
@@ -211,8 +194,28 @@ function createNewWallet()
 {
     hide_popup();
 
-    alert("new ");
-    
-     window.localStorage.setItem("ustvarjen", true);
+    var s = "<div id=\"new_wallet\"> <h4>Ustvari novo denarnico:</h4> <p>Uporabniško ime:</p><input type=\"text\" id=\"uname\" /><p>Geslo:</p><input type=\"password\" id=\"pass\" /><p>Ponovi geslo:</p><input type=\"password\" id=\"pass1\" /><br/><button class=\"gumb\" id=\"nov_confirm\">Potrdi</button><div id=\"new_wallet_error\"></div> </div>";
+    show_popup(s, false, false);
+    document.getElementById('nov_confirm').addEventListener("touchend", confirmNewWallet, false);
+
+}
+
+function confirmNewWallet() {
+    var uname = $("#uname").val();
+    var pass = $("#pass").val();
+    var pass1 = $("#pass1").val();
+
+    if (pass === pass1)
+    {
+        denarnica.uname = uname;
+        denarnica.pass = md5(pass);
+        window.localStorage.setItem("ustvarjen", true);
+        hide_popup();
+    }
+    else
+    {
+        $("#new_wallet_error").html("<p style=\"font-color:red;\">Gesli se ne ujemata!</p>");
+    }
+
 }
 
