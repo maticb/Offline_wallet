@@ -26,7 +26,7 @@ function init() {
     //--
     
     var ustvarjen = window.localStorage.getItem("ustvarjen");
-    if (ustvarjen !== true)//wallet ni ustvarjen
+    if (ustvarjen !== "da")//wallet ni ustvarjen
     {
         var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
         show_popup(s, false, false);
@@ -56,6 +56,7 @@ function gotFileEntry(fileEntry) {
 
 function gotFileWriter(writer) {
     writer.write(izpis);
+    alert("Denarnica uspešno shranjena!");
 }
 
 //---------------------------------
@@ -74,7 +75,7 @@ function gotFile(fileEntry) {
             var json = this.result;
             denarnica = JSON.parse(json);
             window.localStorage.setItem("denarnica", denarnica);
-            window.localStorage.setItem("ustvarjen", true);
+            window.localStorage.setItem("ustvarjen", "da");
 
             $("#container").css("display", "none");
             $("#container").css("z-index", "-10");
@@ -215,7 +216,7 @@ function confirmNewWallet() {
         denarnica.uname = uname;
         denarnica.pass = md5(pass);
         window.localStorage.setItem("denarnica", denarnica);
-        window.localStorage.setItem("ustvarjen", true);
+        window.localStorage.setItem("ustvarjen", "da");
         hide_popup();
     }
     else
