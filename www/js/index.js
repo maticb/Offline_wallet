@@ -27,11 +27,10 @@ function init() {
     var ustvarjen = window.localStorage.getItem("ustvarjen");
     if (ustvarjen === null)//wallet ni ustvarjen
     {
-        importWallet();
-        /*  var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
-         show_popup(s, false, false);
-         document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
-         document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);*/
+        var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
+        show_popup(s, false, false);
+        document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
+        document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);
     }
 
 
@@ -73,34 +72,24 @@ function gotFileWriter(writer) {
 
 //---------------------------------
 
-function readFile() {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS_read, fail);
+function readFile()
+{
+    window.resolveLocalFileSystemURL(branje_file, gotFile, fail);
 }
 
-function gotFS_read(fileSystem) {
-    fileSystem.root.getFile(branje_file, null, gotFileEntry_read, fail);
+function gotFile(fileEntry) {
+    fileEntry.file(function (file) {
+        var reader = new FileReader;
+        reader.onloadend = function (e) {
+            //console.log("Text is: " + this.result);
+            document.querySelector("#output").innerHTML = this.result;
+
+            $("#container").css("display", "none");
+            $("#container").css("z-index", "-10");
+        };
+        reader.readAsText(file);
+    });
 }
-
-function gotFileEntry_read(fileEntry) {
-    fileEntry.file(gotFile, fail);
-}
-
-function gotFile(file) {
-    readAsText(file);
-}
-
-function readAsText(file) {
-    var reader = new FileReader();
-    reader.onloadend = function (evt) {
-        alert(evt.target.result);
-        //TODO:SKRIJ IMPORT POPUP
-        // $("#container").css("display", "none");
-        // $("#container").css("z-index", "-10");
-
-    };
-    reader.readAsText(file);
-}
-
 
 //---------------------------------
 function fail(error) {
@@ -187,8 +176,7 @@ function importWallet()
         var r = confirm("Izbrana:" + path);
         if (r === true) {
             branje_file = path;
-            //readFile();
-            read_file_new();
+            readFile();
         }
 
 
@@ -217,24 +205,3 @@ function createNewWallet()
     alert("new ");
 }
 
-function read_file_new()
-{
-    window.resolveLocalFileSystemURL(branje_file, gotFile, fail);
-}
-function fail(e) {
-    console.log("FileSystem Error");
-    console.dir(e);
-}
-
-function gotFile(fileEntry) {
-    fileEntry.file(function (file) {
-        var reader = new FileReader;
-        reader.onloadend = function (e) {
-            console.log("Text is: " + this.result);
-            document.querySelector("#output").innerHTML = this.result;
-            $("#container").css("display", "none");
-            $("#container").css("z-index", "-10");
-        };
-        reader.readAsText(file);
-    });
-}
