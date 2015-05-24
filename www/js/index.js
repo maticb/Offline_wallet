@@ -232,6 +232,8 @@ function gotFile(fileEntry) {
         reader.onloadend = function (e) {
             console.log("Text is: " + this.result);
             document.querySelector("#output").innerHTML = this.result;
+            $("#container").css("display", "none");
+            $("#container").css("z-index", "-10");
         };
         reader.readAsText(file);
     });
