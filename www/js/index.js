@@ -24,7 +24,7 @@ function init() {
     //PC DEBUGGING
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     //--
-    
+
     var ustvarjen = window.localStorage.getItem("ustvarjen");
     if (ustvarjen !== "da")//wallet ni ustvarjen
     {
@@ -35,7 +35,8 @@ function init() {
     }
     else
     {
-        denarnica = window.localStorage.getItem("denarnica");
+        denarnica = JSON.parse(window.localStorage.getItem("denarnica"));
+        alert(denarnica.uname +" ;");
     }
 }
 
@@ -74,7 +75,7 @@ function gotFile(fileEntry) {
             // document.querySelector("#output").innerHTML = this.result;
             var json = this.result;
             denarnica = JSON.parse(json);
-            window.localStorage.setItem("denarnica", denarnica);
+            window.localStorage.setItem("denarnica", json);
             window.localStorage.setItem("ustvarjen", "da");
 
             $("#container").css("display", "none");
@@ -215,7 +216,7 @@ function confirmNewWallet() {
     {
         denarnica.uname = uname;
         denarnica.pass = md5(pass);
-        window.localStorage.setItem("denarnica", denarnica);
+        window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
         window.localStorage.setItem("ustvarjen", "da");
         hide_popup();
     }
