@@ -35,9 +35,9 @@ function init() {
     }
     else
     {
-        alert(window.localStorage.getItem("denarnica"));
+       // alert(window.localStorage.getItem("denarnica"));
         denarnica = JSON.parse(window.localStorage.getItem("denarnica"));
-        alert(denarnica.uname + " ;");
+        //alert(denarnica.uname + " ;");
     }
 }
 
