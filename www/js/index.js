@@ -24,7 +24,7 @@ function init() {
     //PC DEBUGGING
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     //--
-    window.localStorage.setItem("ustvarjen", false);
+    
     var ustvarjen = window.localStorage.getItem("ustvarjen");
     if (ustvarjen !== true)//wallet ni ustvarjen
     {
