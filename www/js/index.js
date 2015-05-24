@@ -24,7 +24,7 @@ function init() {
     //PC DEBUGGING
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     //--
-
+    window.localStorage.setItem("ustvarjen", false);
     var ustvarjen = window.localStorage.getItem("ustvarjen");
     if (ustvarjen === null)//wallet ni ustvarjen
     {
@@ -32,6 +32,10 @@ function init() {
         show_popup(s, false, false);
         document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
         document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);
+    }
+    else
+    {
+        denarnica = window.localStorage.getItem("denarnica");
     }
 }
 
@@ -69,6 +73,7 @@ function gotFile(fileEntry) {
             // document.querySelector("#output").innerHTML = this.result;
             var json = this.result;
             denarnica = JSON.parse(json);
+            window.localStorage.setItem("denarnica", denarnica);
             window.localStorage.setItem("ustvarjen", true);
 
             $("#container").css("display", "none");
@@ -209,6 +214,7 @@ function confirmNewWallet() {
     {
         denarnica.uname = uname;
         denarnica.pass = md5(pass);
+        window.localStorage.setItem("denarnica", denarnica);
         window.localStorage.setItem("ustvarjen", true);
         hide_popup();
     }
