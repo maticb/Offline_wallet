@@ -26,7 +26,7 @@ function init() {
     //--
     window.localStorage.setItem("ustvarjen", false);
     var ustvarjen = window.localStorage.getItem("ustvarjen");
-    if (ustvarjen === null)//wallet ni ustvarjen
+    if (ustvarjen !== true)//wallet ni ustvarjen
     {
         var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
         show_popup(s, false, false);
