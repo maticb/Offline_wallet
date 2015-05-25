@@ -2,11 +2,9 @@ function wallet() {
     this.uname = "";
     this.pass = "";
     this.coini = [];
-    this.watch('coini', wallet.prototype._coiniOnChange);
+  
 }
-wallet.prototype._coiniOnChange = function (id, oldval, newval) {
-alert("coini changed");
-};
+
 var denarnica = new wallet();
 var izpis = "matic";
 var qr_input = "";
