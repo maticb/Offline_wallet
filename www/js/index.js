@@ -29,6 +29,8 @@ function denarnicaOnChangeManual()
 
 document.addEventListener("deviceready", init, false);
 function init() {
+
+
     document.getElementById('qr_koda').addEventListener("touchend", qr_create, false);
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
     document.getElementById('saveWallet').addEventListener("touchend", saveWallet, false);
@@ -305,7 +307,7 @@ function dodaj_coin_temp()
         url: url,
         timeout: 60 * 1000
     }).done(function (data) {
-        alert(data);
+        alert(data.status + " - " + data.message + " - " + data.coins[0]);
     }).fail(function (a, b, c) {
         alert("Error: " + b + '|' + c);
     });
