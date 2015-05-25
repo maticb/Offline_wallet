@@ -147,15 +147,20 @@ function startScan() {
 
 function qr_create()
 {
+    if (denarnica.coini.length > 1)
+    {
+        qr_input = denarnica.coini[0];
+        denarnica.coini.splice(0);
+        denarnicaOnChangeManual();
 
-    var qrcode = new QRCode("output2");
-
-    function makeCode() {
-
-        qrcode.makeCode(qr_input);
+        var qrcode = new QRCode("output2");
+        function makeCode() {
+            qrcode.makeCode(qr_input);
+        }
+        makeCode();
     }
-
-    makeCode();
+    else
+        alert("Za pošiljanje morate imeti vsaj 1 coin!");
 }
 //---------------------------------
 
