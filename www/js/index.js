@@ -134,7 +134,8 @@ function startScan() {
                 var s = "Result: " + result.text + "<br/>" +
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
-                document.querySelector("#output").innerHTML = s;
+                alert(s);
+                //document.querySelector("#output").innerHTML = s;
                  /*if (result.text.substr(0, 4).toUpperCase() === "COIN")
                  {
                  denarnica.coini.push(result.text);
