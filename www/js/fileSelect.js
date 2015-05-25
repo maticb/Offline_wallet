@@ -86,8 +86,8 @@ FileSelector.prototype = {
 		'	<div class="not-ready">' + "\n" +
 		'		<span>Opening...</span>' + "\n" +
 		'	</div>' + "\n" +
-		'</div>' + "\n" +
-		'<div class="options show"><select class="mask"></select></div>'
+		'</div>' + "\n" //+
+		//'<div class="options show"><select class="mask"></select></div>'
 		);
 		$elem.find('.options .mask').change(function()
 		{
