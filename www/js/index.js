@@ -2,7 +2,7 @@ function wallet() {
     this.uname = "";
     this.pass = "";
     this.coini = [];
-  
+
 }
 
 var denarnica = new wallet();
@@ -262,7 +262,7 @@ function confirmNewWallet() {
 
 function dodaj_coin_temp()
 {
-    var s = "coin" + random() + ":";
+    var s = "coin" + Math.random() + ":";
     denarnica.coini.push(s);
     alert(s);
 }
