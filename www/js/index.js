@@ -109,6 +109,7 @@ function gotFile(fileEntry) {
 
                 $("#container").css("display", "none");
                 $("#container").css("z-index", "-10");
+                alert("Uspešno uvožena denarnica: " + denarnica.uname);
             }
             else
                 alert("Napaka pri dekodiranju, poskusite ponovno!");
