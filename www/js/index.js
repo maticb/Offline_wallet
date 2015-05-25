@@ -2,14 +2,25 @@ function wallet() {
     this.uname = "";
     this.pass = "";
     this.coini = [];
-
 }
+
+
+
 
 var denarnica = new wallet();
 var izpis = "matic";
 var qr_input = "";
 var branje_file = "";
 
+function denarnicaOnChangeManual()
+{
+    window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
+    var s = "";
+    for (var i = 0; i < denarnica.coini.length; i++)
+        s += denarnica.coini[i] + "<br/>";
+    $("#output_coini").html(s);
+
+}
 
 //LOCAL STORAGE
 //document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
@@ -41,6 +52,7 @@ function init() {
         denarnica = JSON.parse(window.localStorage.getItem("denarnica"));
         //alert(denarnica.uname + " ;");
     }
+    denarnicaOnChangeManual();
 }
 function wallet_ustvari_uvozi()
 {
@@ -92,6 +104,7 @@ function gotFile(fileEntry) {
             denarnica = JSON.parse(dekodirano);
             window.localStorage.setItem("denarnica", dekodirano);
             window.localStorage.setItem("ustvarjen", "da");
+            denarnicaOnChangeManual();
 
             $("#container").css("display", "none");
             $("#container").css("z-index", "-10");
@@ -261,6 +274,7 @@ function confirmNewWallet() {
         denarnica.pass = md5(pass);
         window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
         window.localStorage.setItem("ustvarjen", "da");
+        denarnicaOnChangeManual();
         hide_popup();
     }
 
@@ -272,6 +286,6 @@ function dodaj_coin_temp()
     var s = "coin" + Math.random() + ":";
     denarnica.coini.push(s);
     window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
-
-    alert(s);
+    denarnicaOnChangeManual();
+   
 }
