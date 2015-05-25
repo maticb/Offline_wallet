@@ -3,10 +3,9 @@ function wallet() {
     this.pass = "";
     this.coini = [];
 }
-
 var denarnica = new wallet();
 var izpis = "matic";
-var qr_input = ""; //TODO ??
+var qr_input = ""; 
 var branje_file = "";
 
 //LOCAL STORAGE
@@ -47,6 +46,7 @@ function wallet_ustvari_uvozi()
 }
 
 //---------------------------------
+//WRITE TO FILE
 // retrieves root file system entry
 
 function EXPORT_FILE() {
@@ -67,6 +67,7 @@ function gotFileWriter(writer) {
 }
 
 //---------------------------------
+//READ FILE
 
 function readFile()
 {
@@ -96,6 +97,7 @@ function fail(error) {
     alert(error.code);
 }
 //---------------------------------
+//SCAN QR
 
 function startScan() {
 
@@ -113,8 +115,8 @@ function startScan() {
 
 
 }
-
-
+//---------------------------------
+// CREATE QR
 function qr_create()
 {
     var qrcode = new QRCode("output2");
@@ -126,6 +128,7 @@ function qr_create()
 
     makeCode();
 }
+//---------------------------------
 
 function saveWallet()
 {
@@ -223,18 +226,30 @@ function confirmNewWallet() {
     var uname = $("#uname").val();
     var pass = $("#pass").val();
     var pass1 = $("#pass1").val();
+    var p = true;
 
     if (pass === pass1)
+    {
+        p = false;
+        $("#new_wallet_error").html("<p style=\"font-color:red;\">Gesli se ne ujemata!</p>");
+    }
+    if (uname === null || uname === "")
+    {
+        p = false;
+        $("#new_wallet_error").html($("#new_wallet_error").html() + "<p style=\"font-color:red;\">Uporabniško ime ne sme biti prazno!</p>");
+    }
+    if (pass === "" || pass === null || pass1 === "" || pass1 === null)
+    {
+        p = false;
+        $("#new_wallet_error").html($("#new_wallet_error").html() + "<p style=\"font-color:red;\">Geslo ne sme biti prazno!</p>");
+    }
+    if (p === true)
     {
         denarnica.uname = uname;
         denarnica.pass = md5(pass);
         window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
         window.localStorage.setItem("ustvarjen", "da");
         hide_popup();
-    }
-    else
-    {
-        $("#new_wallet_error").html("<p style=\"font-color:red;\">Gesli se ne ujemata!</p>");
     }
 
 }
