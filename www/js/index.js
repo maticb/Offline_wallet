@@ -133,7 +133,7 @@ function startScan() {
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
                 document.querySelector("#output").innerHTML = s;
-                if(result.text.substr(0,4).toUpperCase() === "COIN")
+                if (result.text.substr(0, 4).toUpperCase() === "COIN")
                 {
                     denarnica.coini.push(result.text);
                     denarnicaOnChangeManual();
@@ -155,7 +155,7 @@ function qr_create()
     if (denarnica.coini.length > 0)
     {
         qr_input = denarnica.coini[0];
-        denarnica.coini.splice(0,1);
+        denarnica.coini.splice(0, 1);
         denarnicaOnChangeManual();
 
         var qrcode = new QRCode("output2");
@@ -298,6 +298,18 @@ function confirmNewWallet() {
 
 function dodaj_coin_temp()
 {
+    $.support.cors = true;
+    var url = 'http://picoin-gm94.rhcloud.com/generateCoin/asdas/1';
+    $.ajax({
+        type: "GET",
+        url: url,
+        timeout: 60 * 1000
+    }).done(function (data) {
+        alert(data);
+    }).fail(function (a, b, c) {
+        alert("Error: " + b + '|' + c);
+    });
+
     var s = "coin" + Math.random() + ":";
     denarnica.coini.push(s);
     window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
