@@ -143,6 +143,7 @@ function startScan() {
                  }*/
                 var coins = [];
                 coins.push(result.text);
+                alert(coins[0]);
                 var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
                 $.ajax({
                     type: "POST",
@@ -162,6 +163,7 @@ function startScan() {
                 }).fail(function (a, b, c) {
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
                 });
+                alert("za ajaxom");
 
             },
             function (error) {
