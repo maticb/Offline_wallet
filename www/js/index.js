@@ -6,7 +6,7 @@ function wallet() {
 
 var denarnica = new wallet();
 var izpis = "matic";
-var url = ""; //TODO ??
+var qr_input = ""; //TODO ??
 var branje_file = "";
 
 //LOCAL STORAGE
@@ -28,17 +28,22 @@ function init() {
     var ustvarjen = window.localStorage.getItem("ustvarjen");
     if (ustvarjen !== "da")//wallet ni ustvarjen
     {
-        var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
-        show_popup(s, false, false);
-        document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
-        document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);
+        wallet_ustvari_uvozi();
     }
     else
     {
-       // alert(window.localStorage.getItem("denarnica"));
+        // alert(window.localStorage.getItem("denarnica"));
         denarnica = JSON.parse(window.localStorage.getItem("denarnica"));
         //alert(denarnica.uname + " ;");
     }
+}
+function wallet_ustvari_uvozi()
+{
+    hide_popup();
+    var s = "<div id=\"create_wallet\"><h4>  Za uporabo aplikacije morate ustvariti novo denarnico, ali pa uvoziti obstoječo! </h4><button class=\"gumb\" id=\"nov_wallet_btn\">Ustvari novo</button><button class=\"gumb\" id=\"uvozi_wallet_btn\">Uvozi obstoječo</button></div>"
+    show_popup(s, false, false);
+    document.getElementById('nov_wallet_btn').addEventListener("touchend", createNewWallet, false);
+    document.getElementById('uvozi_wallet_btn').addEventListener("touchend", importWallet, false);
 }
 
 //---------------------------------
@@ -116,7 +121,7 @@ function qr_create()
 
     function makeCode() {
 
-        qrcode.makeCode(url);
+        qrcode.makeCode(qr_input);
     }
 
     makeCode();
@@ -202,10 +207,16 @@ function createNewWallet()
 {
     hide_popup();
 
-    var s = "<div id=\"new_wallet\"> <h4>Ustvari novo denarnico:</h4> <p>Uporabniško ime:</p><input type=\"text\" id=\"uname\" /><p>Geslo:</p><input type=\"password\" id=\"pass\" /><p>Ponovi geslo:</p><input type=\"password\" id=\"pass1\" /><br/><button class=\"gumb\" id=\"nov_confirm\">Potrdi</button><div id=\"new_wallet_error\"></div> </div>";
+    var s = "<div id=\"new_wallet\"> <h4>Ustvari novo denarnico:</h4> <p>Uporabniško ime:</p><input type=\"text\" id=\"uname\" /><p>Geslo:</p><input type=\"password\" id=\"pass\" /><p>Ponovi geslo:</p><input type=\"password\" id=\"pass1\" /><br/><button class=\"gumb\" id=\"nov_confirm\">Potrdi</button><button class=\"gumb\" id=\"nazaj_create_new_wallet\">Nazaj</button><div id=\"new_wallet_error\"></div> </div>";
     show_popup(s, false, false);
     document.getElementById('nov_confirm').addEventListener("touchend", confirmNewWallet, false);
+    document.getElementById('nazaj_create_new_wallet').addEventListener("touchend", nazajNewWallet, false);
+    document.addEventListener("backbutton", nazajNewWallet, false);
+}
 
+function  nazajNewWallet() {
+    document.removeEventListener("backbutton", nazajNewWallet, false);
+    wallet_ustvari_uvozi();
 }
 
 function confirmNewWallet() {
