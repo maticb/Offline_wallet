@@ -1024,3 +1024,26 @@ function dekodiraj(i, kljuc)
 }
 
 
+function kodiraj_simple(i, kljuc)
+{
+    var encrypted = CryptoJS.AES.encrypt(i, kljuc);
+
+    var seen = [];
+    var r = JSON.stringify(encrypted, function (key, val) {
+        if (val != null && typeof val == "object") {
+            if (seen.indexOf(val) >= 0) {
+                return;
+            }
+            seen.push(val);
+        }
+        return val;
+    });
+    return r;
+}
+function dekodiraj_simple(i, kljuc)
+{
+    var rtrn = CryptoJS.AES.decrypt(JSON.parse(i), kljuc).toString(CryptoJS.enc.Utf8);
+
+    return rtrn;
+
+}

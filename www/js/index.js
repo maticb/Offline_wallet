@@ -27,6 +27,7 @@ function init() {
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
     document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
+    document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", importWallet, false);
     //--
 
     var ustvarjen = window.localStorage.getItem("ustvarjen");
@@ -86,8 +87,10 @@ function gotFile(fileEntry) {
             //console.log("Text is: " + this.result);
             // document.querySelector("#output").innerHTML = this.result;
             var json = this.result;
-            denarnica = JSON.parse(json);
-            window.localStorage.setItem("denarnica", json);
+            var dekodirano = dekodiraj(json, "danes je lep dan");
+            alert(dekodirano);
+            denarnica = JSON.parse(dekodirano);
+            window.localStorage.setItem("denarnica", dekodirano);
             window.localStorage.setItem("ustvarjen", "da");
 
             $("#container").css("display", "none");
@@ -122,8 +125,11 @@ function startScan() {
 }
 //---------------------------------
 // CREATE QR
+
+
 function qr_create()
 {
+
     var qrcode = new QRCode("output2");
 
     function makeCode() {
@@ -139,6 +145,7 @@ function saveWallet()
 {
     //denarnica.uname = "moj usernam";
     var s = JSON.stringify(denarnica);
+    s = kodiraj(s, "danes je lep dan");
     izpis = s;
     EXPORT_FILE();
 }
@@ -264,5 +271,7 @@ function dodaj_coin_temp()
 {
     var s = "coin" + Math.random() + ":";
     denarnica.coini.push(s);
+    window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
+
     alert(s);
 }
