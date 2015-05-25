@@ -134,7 +134,7 @@ function startScan() {
                 var s = "Result: " + result.text + "<br/>" +
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
-                alert(s);
+               
                 //document.querySelector("#output").innerHTML = s;
                 /*if (result.text.substr(0, 4).toUpperCase() === "COIN")
                  {
@@ -153,13 +153,14 @@ function startScan() {
                     timeout: 60 * 1000,
                     data: coins
                 }).done(function (data) {
-                    alert(data.status + " - " + data.message + " - " + data.coins[0]);
+                    //alert(data.status + " - " + data.message + " - " + data.coins[0]);
                     if (data.status === "ok")
                     {
                         var s = data.coins[0];
-                        alert(s);
+                        
                         denarnica.coini.push(s);
                         window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
+                        alert("Uspešno dodan coin!");
                         denarnicaOnChangeManual();
                     }
                 }).fail(function (a, b, c) {
