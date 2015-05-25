@@ -134,8 +134,8 @@ function startScan() {
                 var s = "Result: " + result.text + "<br/>" +
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
-                /*document.querySelector("#output").innerHTML = s;
-                 if (result.text.substr(0, 4).toUpperCase() === "COIN")
+                document.querySelector("#output").innerHTML = s;
+                 /*if (result.text.substr(0, 4).toUpperCase() === "COIN")
                  {
                  denarnica.coini.push(result.text);
                  denarnicaOnChangeManual();
@@ -153,6 +153,7 @@ function startScan() {
                     if (data.status === "ok")
                     {
                         var s = data.coins[0];
+                        alert(s);
                         denarnica.coini.push(s);
                         window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
                         denarnicaOnChangeManual();
