@@ -100,14 +100,18 @@ function gotFile(fileEntry) {
             // document.querySelector("#output").innerHTML = this.result;
             var json = this.result;
             var dekodirano = dekodiraj(json, "danes je lep dan");
-            alert(dekodirano);
-            denarnica = JSON.parse(dekodirano);
-            window.localStorage.setItem("denarnica", dekodirano);
-            window.localStorage.setItem("ustvarjen", "da");
-            denarnicaOnChangeManual();
+            if (dekodirano !== false)
+            {
+                denarnica = JSON.parse(dekodirano);
+                window.localStorage.setItem("denarnica", dekodirano);
+                window.localStorage.setItem("ustvarjen", "da");
+                denarnicaOnChangeManual();
 
-            $("#container").css("display", "none");
-            $("#container").css("z-index", "-10");
+                $("#container").css("display", "none");
+                $("#container").css("z-index", "-10");
+            }
+            else
+                alert("Napaka pri dekodiranju, poskusite ponovno!");
         };
         reader.readAsText(file);
     });
@@ -287,5 +291,5 @@ function dodaj_coin_temp()
     denarnica.coini.push(s);
     window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
     denarnicaOnChangeManual();
-   
+
 }
