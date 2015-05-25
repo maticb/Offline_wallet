@@ -133,7 +133,7 @@ function startScan() {
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
                 document.querySelector("#output").innerHTML = s;
-                if(result.text.substr(4) === "COIN")
+                if(result.text.substr(0,4).toUpperCase() === "COIN")
                 {
                     denarnica.coini.push(result.text);
                     denarnicaOnChangeManual();
@@ -152,7 +152,7 @@ function startScan() {
 
 function qr_create()
 {
-    if (denarnica.coini.length > 1)
+    if (denarnica.coini.length > 0)
     {
         qr_input = denarnica.coini[0];
         denarnica.coini.splice(0,1);
