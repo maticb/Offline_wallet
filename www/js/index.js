@@ -133,6 +133,11 @@ function startScan() {
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
                 document.querySelector("#output").innerHTML = s;
+                if(result.text.substr(4) === "COIN")
+                {
+                    denarnica.coini.push(result.text);
+                    denarnicaOnChangeManual();
+                }
             },
             function (error) {
                 alert("Scanning failed: " + error);
@@ -150,7 +155,7 @@ function qr_create()
     if (denarnica.coini.length > 1)
     {
         qr_input = denarnica.coini[0];
-        denarnica.coini.splice(0);
+        denarnica.coini.splice(0,1);
         denarnicaOnChangeManual();
 
         var qrcode = new QRCode("output2");
