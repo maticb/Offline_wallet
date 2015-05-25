@@ -5,8 +5,12 @@ function wallet() {
 }
 var denarnica = new wallet();
 var izpis = "matic";
-var qr_input = ""; 
+var qr_input = "";
 var branje_file = "";
+
+denarnica.onchange = function () {
+    alert("changed");
+};
 
 //LOCAL STORAGE
 //document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
@@ -18,12 +22,14 @@ function init() {
     document.getElementById('qr_koda').addEventListener("touchend", qr_create, false);
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
     document.getElementById('saveWallet').addEventListener("touchend", saveWallet, false);
-    document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
 
-    //PC DEBUGGING
+
+    //PC DEBUGGING/TEMP
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
+    document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
+    document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
     //--
-    //window.localStorage.setItem("ustvarjen", null);
+
     var ustvarjen = window.localStorage.getItem("ustvarjen");
     if (ustvarjen !== "da")//wallet ni ustvarjen
     {
@@ -254,3 +260,8 @@ function confirmNewWallet() {
 
 }
 
+
+function dodaj_coin_temp()
+{
+    denarnica.coini.push("coin" + random() + ":");
+}
