@@ -2,15 +2,16 @@ function wallet() {
     this.uname = "";
     this.pass = "";
     this.coini = [];
+    this.watch('coini', wallet.prototype._coiniOnChange);
 }
+wallet.prototype._coiniOnChange = function (id, oldval, newval) {
+alert("coini changed");
+};
 var denarnica = new wallet();
 var izpis = "matic";
 var qr_input = "";
 var branje_file = "";
 
-denarnica.onchange = function () {
-    alert("changed");
-};
 
 //LOCAL STORAGE
 //document.querySelector("#output1").innerHTML = window.localStorage.getItem("ls_test");
@@ -263,5 +264,7 @@ function confirmNewWallet() {
 
 function dodaj_coin_temp()
 {
-    denarnica.coini.push("coin" + random() + ":");
+    var s = "coin" + random() + ":";
+    denarnica.coini.push(s);
+    alert(s);
 }
