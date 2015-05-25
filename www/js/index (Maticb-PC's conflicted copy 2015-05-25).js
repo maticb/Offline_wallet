@@ -134,34 +134,34 @@ function startScan() {
                 var s = "Result: " + result.text + "<br/>" +
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
-
+                alert(s);
                 //document.querySelector("#output").innerHTML = s;
                 /*if (result.text.substr(0, 4).toUpperCase() === "COIN")
                  {
                  denarnica.coini.push(result.text);
                  denarnicaOnChangeManual();
                  }*/
-                var coins = [];
-                coins.push(result.text);
-                var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    timeout: 60 * 1000,
-                    data: coins
-                }).done(function (data) {
-                    alert(data.status + " - " + data.message + " - " + data.coins[0]);
-                    if (data.status === "ok")
-                    {
-                        var s = data.coins[0];
-                        alert(s);
-                        denarnica.coini.push(s);
-                        window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
-                        denarnicaOnChangeManual();
-                    }
-                }).fail(function (a, b, c) {
-                    alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
-                });
+                /* var coins = [];
+                 coins.push(result.text);
+                 var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
+                 $.ajax({
+                 type: "POST",
+                 url: url,
+                 timeout: 60 * 1000,
+                 data: coins
+                 }).done(function (data) {
+                 alert(data.status + " - " + data.message + " - " + data.coins[0]);
+                 if (data.status === "ok")
+                 {
+                 var s = data.coins[0];
+                 alert(s);
+                 denarnica.coini.push(s);
+                 window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
+                 denarnicaOnChangeManual();
+                 }
+                 }).fail(function (a, b, c) {
+                 alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
+                 });*/
 
             },
             function (error) {
@@ -182,11 +182,11 @@ function qr_create()
         qr_input = denarnica.coini[0];
         denarnica.coini.splice(0, 1);
         denarnicaOnChangeManual();
-        alert(qr_input);
+
 
         var qrcode = new QRCode("output2");
         function makeCode() {
-            qrcode.makeCode(qr_input);
+            qrcode.makeCode(qr_input.toString());
         }
         makeCode();
     }
