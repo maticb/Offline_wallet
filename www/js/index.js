@@ -140,7 +140,7 @@ function startScan() {
                  denarnica.coini.push(result.text);
                  denarnicaOnChangeManual();
                  }*/
-                var coins = [];
+               /* var coins = [];
                 coins.push(result.text);
                 var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
                 $.ajax({
@@ -160,7 +160,7 @@ function startScan() {
                     }
                 }).fail(function (a, b, c) {
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
-                });
+                });*/
 
             },
             function (error) {
