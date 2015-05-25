@@ -128,7 +128,7 @@ function fail(error) {
 //SCAN QR
 
 function startScan() {
-    alert("jebemti mater1");
+   
     cordova.plugins.barcodeScanner.scan(
             function (result) {
                 var s = "Result: " + result.text + "<br/>" +
@@ -141,10 +141,11 @@ function startScan() {
                  denarnica.coini.push(result.text);
                  denarnicaOnChangeManual();
                  }*/
-                alert("jebemti mater2");
+               
                 var coins = [];
-                coins.push(result.text);
-                alert(coins[0]);
+                coins.push(result.text.toString());
+                coins = "data="+ JSON.stringify(coins);
+                
                 var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
                 $.ajax({
                     type: "POST",
@@ -164,7 +165,7 @@ function startScan() {
                 }).fail(function (a, b, c) {
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
                 });
-                alert("za ajaxom");
+             
 
             },
             function (error) {
