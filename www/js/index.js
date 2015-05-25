@@ -27,7 +27,7 @@ function init() {
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
     document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
-    document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", importWallet, false);
+    document.getElementById('uvozi_wallet_temp_btn').addEventListener("touchend", importWallet, false);
     //--
 
     var ustvarjen = window.localStorage.getItem("ustvarjen");
@@ -240,7 +240,7 @@ function confirmNewWallet() {
     var pass1 = $("#pass1").val();
     var p = true;
 
-    if (pass === pass1)
+    if (pass !== pass1)
     {
         p = false;
         $("#new_wallet_error").html("<p style=\"font-color:red;\">Gesli se ne ujemata!</p>");
