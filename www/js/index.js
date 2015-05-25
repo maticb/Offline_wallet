@@ -128,19 +128,20 @@ function fail(error) {
 //SCAN QR
 
 function startScan() {
-
+    alert("jebemti mater1");
     cordova.plugins.barcodeScanner.scan(
             function (result) {
                 var s = "Result: " + result.text + "<br/>" +
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
-
+                alert(s);
                 //document.querySelector("#output").innerHTML = s;
                 /*if (result.text.substr(0, 4).toUpperCase() === "COIN")
                  {
                  denarnica.coini.push(result.text);
                  denarnicaOnChangeManual();
                  }*/
+                alert("jebemti mater2");
                 var coins = [];
                 coins.push(result.text);
                 alert(coins[0]);
@@ -184,7 +185,7 @@ function qr_create()
         qr_input = denarnica.coini[0];
         denarnica.coini.splice(0, 1);
         denarnicaOnChangeManual();
-        alert(qr_input);
+        //alert(qr_input);
 
         var qrcode = new QRCode("output2");
         function makeCode() {
