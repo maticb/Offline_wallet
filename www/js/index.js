@@ -133,6 +133,7 @@ function preveriDekodiranje()
         $("#container").css("display", "none");
         $("#container").css("z-index", "-10");
         alert("Uspešno uvožena denarnica: " + denarnica.uname);
+
     }
     else
         alert("Napaka pri dekodiranju, poskusite ponovno!");
@@ -224,14 +225,18 @@ function validateLocalQueue()
         //alert(data.status + " - " + data.message + " - " + data.coins[0]);
         if (data.status === "ok")
         {
+            alert(data.coins.length);
             for (var i = 0; i < data.coins.length; i++)
             {
                 denarnica.coini.push(data.coins[i]);
+                
+                
             }
-            window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
+            denarnicaOnChangeManual();
+            //window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
             window.localStorage.setItem("queueCoinov", false);
             alert("Uspešno dodan/i coin!");
-            denarnicaOnChangeManual();
+
         }
     }).fail(function (a, b, c) {
         alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
