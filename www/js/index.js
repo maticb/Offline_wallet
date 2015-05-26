@@ -260,7 +260,7 @@ function qr_create()
 
         var qrcode = new QRCode("output2");
         function makeCode() {
-            qrcode.makeCode(qr_input);
+            qrcode.makeCode(qr_input.toString());
         }
         makeCode();
     }
