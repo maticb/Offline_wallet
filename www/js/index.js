@@ -202,8 +202,11 @@ function startScan() {
 function saveToLocalQueue(coin)
 {
     var arr = [];
-    arr = JSON.parse(window.localStorage.getItem("queueCoinov"));
+    if (window.localStorage.getItem("queueCoinov") !== false)
+        arr = JSON.parse(window.localStorage.getItem("queueCoinov"));
     arr.push(coin);
+    alert(arr.length + " save");
+
 
     window.localStorage.setItem("queueCoinov", JSON.stringify(arr));
 
@@ -214,6 +217,7 @@ function validateLocalQueue()
 
     var coins = window.localStorage.getItem("queueCoinov");
     var temp_arr = JSON.parse(coins);
+    alert("validate: " + temp_arr.length + " - " + temp_arr[0]);
     coins = "data=" + coins;
 
     var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
