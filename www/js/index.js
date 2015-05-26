@@ -100,24 +100,41 @@ function gotFile(fileEntry) {
         reader.onloadend = function (e) {
             //console.log("Text is: " + this.result);
             // document.querySelector("#output").innerHTML = this.result;
-            var json = this.result;
-            var dekodirano = dekodiraj(json, "danes je lep dan");
-            if (dekodirano !== false)
-            {
-                denarnica = JSON.parse(dekodirano);
-                window.localStorage.setItem("denarnica", dekodirano);
-                window.localStorage.setItem("ustvarjen", "da");
-                denarnicaOnChangeManual();
+            json = this.result;
 
-                $("#container").css("display", "none");
-                $("#container").css("z-index", "-10");
-                alert("Uspešno uvožena denarnica: " + denarnica.uname);
-            }
-            else
-                alert("Napaka pri dekodiranju, poskusite ponovno!");
+            var s = '<div id="login_wallet"> ' +
+                    '<h4>Geslo denarnice:</h4>' +
+                    '<input type="password" id="login_wallet_pass" /><br/>' +
+                    '<button class="gumb" id="login_wallet_cancel">Prekliči</button>' +
+                    '<button class="gumb" id="login_wallet_confirm">Potrdi</button>' +
+                    '</div>"';
+            show_popup(s, false, false);
+            document.getElementById('nov_wallet_btn').addEventListener("touchend", preveriDekodiranje, false);
+            document.getElementById('login_wallet_cancel').addEventListener("touchend", hide_popup, false);
+            
         };
         reader.readAsText(file);
     });
+}
+
+function preveriDekodiranje()
+{
+    var pass = $("#login_wallet_pass").val();
+    hide_popup();
+    var dekodirano = dekodiraj(json, md5(pass));
+    if (dekodirano !== false)
+    {
+        denarnica = JSON.parse(dekodirano);
+        window.localStorage.setItem("denarnica", dekodirano);
+        window.localStorage.setItem("ustvarjen", "da");
+        denarnicaOnChangeManual();
+
+        $("#container").css("display", "none");
+        $("#container").css("z-index", "-10");
+        alert("Uspešno uvožena denarnica: " + denarnica.uname);
+    }
+    else
+        alert("Napaka pri dekodiranju, poskusite ponovno!");
 }
 
 //---------------------------------
@@ -128,24 +145,24 @@ function fail(error) {
 //SCAN QR
 
 function startScan() {
-   
+
     cordova.plugins.barcodeScanner.scan(
             function (result) {
                 var s = "Result: " + result.text + "<br/>" +
                         "Format: " + result.format + "<br/>" +
                         "Cancelled: " + result.cancelled;
-               
+
                 //document.querySelector("#output").innerHTML = s;
                 /*if (result.text.substr(0, 4).toUpperCase() === "COIN")
                  {
                  denarnica.coini.push(result.text);
                  denarnicaOnChangeManual();
                  }*/
-               
+
                 var coins = [];
                 coins.push(result.text.toString());
-                coins = "data="+ JSON.stringify(coins);
-                
+                coins = "data=" + JSON.stringify(coins);
+
                 var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
                 $.ajax({
                     type: "POST",
@@ -157,7 +174,7 @@ function startScan() {
                     if (data.status === "ok")
                     {
                         var s = data.coins[0];
-                        
+
                         denarnica.coini.push(s);
                         window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
                         alert("Uspešno dodan coin!");
@@ -166,7 +183,7 @@ function startScan() {
                 }).fail(function (a, b, c) {
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
                 });
-             
+
 
             },
             function (error) {
@@ -204,7 +221,7 @@ function saveWallet()
 {
     //denarnica.uname = "moj usernam";
     var s = JSON.stringify(denarnica);
-    s = kodiraj(s, "danes je lep dan");
+    s = kodiraj(s, denarnica.pass);
     izpis = s;
     EXPORT_FILE();
 }

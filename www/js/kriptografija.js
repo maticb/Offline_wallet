@@ -900,7 +900,7 @@ CryptoJS.lib.Cipher || function (u) {
  
  alert(decrypted);
  */
-
+var iv = CryptoJS.enc.Utf8.parse('7061737323313233');
 function kodiraj(i, kljuc)
 {
 
@@ -947,10 +947,13 @@ function kodiraj(i, kljuc)
     var hash_md5 = md5(i).toString();
 
 
-    var encrypted = CryptoJS.AES.encrypt(i, kljuc, {format: JsonFormatter});
+    var encrypted = CryptoJS.AES.encrypt(i, kljuc, {iv: iv,
+        format: JsonFormatter});
 
-    encrypted.sha = CryptoJS.AES.encrypt(hash_sha, kljuc, {format: JsonFormatter});
-    encrypted.md5 = CryptoJS.AES.encrypt(hash_md5, kljuc, {format: JsonFormatter});
+    encrypted.sha = CryptoJS.AES.encrypt(hash_sha, kljuc, {iv: iv,
+        format: JsonFormatter});
+    encrypted.md5 = CryptoJS.AES.encrypt(hash_md5, kljuc, {iv: iv,
+        format: JsonFormatter});
     ;
 
 
@@ -1010,10 +1013,10 @@ function dekodiraj(i, kljuc)
     };
     var r = JSON.parse(i);
 
-    var r_sha = CryptoJS.AES.decrypt(r["sha"], kljuc, {format: JsonFormatter}).toString(CryptoJS.enc.Utf8);
-    var r_md5 = CryptoJS.AES.decrypt(r["md5"], kljuc, {format: JsonFormatter}).toString(CryptoJS.enc.Utf8);
+    var r_sha = CryptoJS.AES.decrypt(r["sha"], kljuc, {iv: iv, format: JsonFormatter}).toString(CryptoJS.enc.Utf8);
+    var r_md5 = CryptoJS.AES.decrypt(r["md5"], kljuc, {iv: iv, format: JsonFormatter}).toString(CryptoJS.enc.Utf8);
 
-    var rtrn = CryptoJS.AES.decrypt(r, kljuc, {format: JsonFormatter}).toString(CryptoJS.enc.Utf8);
+    var rtrn = CryptoJS.AES.decrypt(r, kljuc, {iv: iv, format: JsonFormatter}).toString(CryptoJS.enc.Utf8);
     if (r_sha !== CryptoJS.SHA3(rtrn).toString())
         return false;
     else if (r_md5 !== md5(rtrn))

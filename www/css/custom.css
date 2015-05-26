@@ -32,6 +32,11 @@ and open the template in the editor.
     margin-right:auto;
     text-align: center;
 }
+#login_wallet{
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+}
 
 .gumb{
     margin:5px;
