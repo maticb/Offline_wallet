@@ -235,12 +235,16 @@ function show_popup(noter, height, width)
 
     document.getElementById('popup_general').innerHTML = noter;
     document.getElementById('popup_general').style.display = "block";
+    document.getElementById('popup_overlay_hidden').style.display = "block";
     $("#popup_general").css("z-index", "15");
+    $("#popup_overlay_hidden").css("z-index", "14");
 }
 
 function hide_popup()
 {
     document.getElementById('popup_general').style.display = "none";
+    document.getElementById('popup_overlay_hidden').style.display = "none";
+    $("#popup_overlay_hidden").css("z-index", "-14");
     $("#popup_general").css("z-index", "-15");
 }
 

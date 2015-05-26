@@ -21,6 +21,20 @@ and open the template in the editor.
     border-radius: 5px;
 
 }
+#popup_overlay_hidden{
+    z-index:14;
+    display:none;
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+
+    background-color: grey;
+    opacity:0.1;
+
+}
+
 
 
 #create_wallet{
