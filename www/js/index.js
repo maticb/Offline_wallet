@@ -56,6 +56,11 @@ function init() {
         //alert(denarnica.uname + " ;");
     }
     denarnicaOnChangeManual();
+    if (window.localStorage.getItem("queueCoinov") === null)
+    {
+        var arr = [];
+        window.localStorage.setItem("queueCoinov", JSON.stringify(arr));
+    }
 }
 function wallet_ustvari_uvozi()
 {
@@ -244,7 +249,7 @@ function validateLocalQueue()
             denarnicaOnChangeManual();
             //window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
             var arr = [];
-            window.localStorage.setItem("queueCoinov", arr);
+            window.localStorage.setItem("queueCoinov", JSON.stringify(arr));
             alert("Uspešno dodan/i coin!");
 
         }
