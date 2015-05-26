@@ -160,9 +160,10 @@ function startScan() {
                  denarnica.coini.push(result.text);
                  denarnicaOnChangeManual();
                  }*/
-
+                alert(s);
                 var coins = [];
                 var coin = result.text.toString();
+
                 coins.push(coin);
                 coins = "data=" + JSON.stringify(coins);
 
@@ -184,6 +185,7 @@ function startScan() {
                         denarnicaOnChangeManual();
                     }
                 }).fail(function (a, b, c) {
+                    alert("pred savom " + coin)
                     saveToLocalQueue(coin);
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
                 });
