@@ -213,6 +213,7 @@ function validateLocalQueue()
 {
 
     var coins = window.localStorage.getItem("queueCoinov");
+    var temp_arr = JSON.parse(coins);
     coins = "data=" + coins;
 
     var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
@@ -222,15 +223,13 @@ function validateLocalQueue()
         timeout: 60 * 1000,
         data: coins
     }).done(function (data) {
-        //alert(data.status + " - " + data.message + " - " + data.coins[0]);
+        // alert(data.status + " - " + data.message + " - " + data.coins[0]);
         if (data.status === "ok")
         {
-            alert(data.coins.length);
-            for (var i = 0; i < data.coins.length; i++)
+
+            for (var i = 0; i < temp_arr.length; i++)
             {
-                denarnica.coini.push(data.coins[i]);
-                
-                
+                denarnica.coini.push(temp_arr[i]);
             }
             denarnicaOnChangeManual();
             //window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
