@@ -165,7 +165,7 @@ function startScan() {
                  denarnica.coini.push(result.text);
                  denarnicaOnChangeManual();
                  }*/
-                alert(s);
+                //alert(s);
                 var coins = [];
                 var coin = result.text.toString();
 
