@@ -56,7 +56,7 @@ function init() {
         //alert(denarnica.uname + " ;");
     }
     denarnicaOnChangeManual();
-    if (window.localStorage.getItem("queueCoinov") === null)
+    if (window.localStorage.getItem("queueCoinov") === null || window.localStorage.getItem("queueCoinov") === false)
     {
         var arr = [];
         window.localStorage.setItem("queueCoinov", JSON.stringify(arr));
@@ -194,7 +194,7 @@ function startScan() {
                     }
                 }).fail(function (a, b, c) {
 
-                    
+
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
                     saveToLocalQueue(coin);
                 });
