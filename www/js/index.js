@@ -41,6 +41,7 @@ function init() {
     document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
     document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
     document.getElementById('uvozi_wallet_temp_btn').addEventListener("touchend", importWallet, false);
+    document.getElementById('validate_queue').addEventListener("touchend", validateLocalQueue, false);
     //--
 
     var ustvarjen = window.localStorage.getItem("ustvarjen");
@@ -160,7 +161,8 @@ function startScan() {
                  }*/
 
                 var coins = [];
-                coins.push(result.text.toString());
+                var coin = result.text.toString();
+                coins.push(coin);
                 coins = "data=" + JSON.stringify(coins);
 
                 var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
@@ -182,6 +184,7 @@ function startScan() {
                     }
                 }).fail(function (a, b, c) {
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
+                    saveToLocalQueue(coin);
                 });
 
 
@@ -194,6 +197,47 @@ function startScan() {
 
 }
 //---------------------------------
+//
+function saveToLocalQueue(coin)
+{
+    var arr = [];
+    arr = JSON.parse(window.localStorage.getItem("queueCoinov"));
+    arr.push(coin);
+
+    window.localStorage.setItem("queueCoinov", JSON.stringify(arr));
+
+}
+
+function validateLocalQueue()
+{
+
+    var coins = window.localStorage.getItem("queueCoinov");
+    coins = "data=" + coins;
+
+    var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
+    $.ajax({
+        type: "POST",
+        url: url,
+        timeout: 60 * 1000,
+        data: coins
+    }).done(function (data) {
+        //alert(data.status + " - " + data.message + " - " + data.coins[0]);
+        if (data.status === "ok")
+        {
+            for (var i = 0; i < data.coins.length; i++)
+            {
+                denarnica.coini.push(data.coins[i]);
+            }
+            window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
+            window.localStorage.setItem("queueCoinov", false);
+            alert("Uspešno dodan/i coin!");
+            denarnicaOnChangeManual();
+        }
+    }).fail(function (a, b, c) {
+        alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
+
+    });
+}
 // CREATE QR
 
 
