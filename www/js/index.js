@@ -194,8 +194,9 @@ function startScan() {
                     }
                 }).fail(function (a, b, c) {
 
-                    saveToLocalQueue(coin);
+                    
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
+                    saveToLocalQueue(coin);
                 });
 
 
