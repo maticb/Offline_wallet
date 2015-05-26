@@ -184,8 +184,12 @@ function startScan() {
                         alert("Uspešno dodan coin!");
                         denarnicaOnChangeManual();
                     }
+                    else
+                    {
+                        alert(data.message);
+                    }
                 }).fail(function (a, b, c) {
-                    alert("pred savom " + coin)
+
                     saveToLocalQueue(coin);
                     alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
                 });
@@ -203,10 +207,10 @@ function startScan() {
 //
 function saveToLocalQueue(coin)
 {
-    alert("save");
+    alert("save " + coin);
     var arr = [];
-    if (window.localStorage.getItem("queueCoinov") !== false)
-        arr = JSON.parse(window.localStorage.getItem("queueCoinov"));
+    alert(window.localStorage.getItem("queueCoinov"));
+    arr = JSON.parse(window.localStorage.getItem("queueCoinov"));
     arr.push(coin);
     alert(arr.length + " save");
     window.localStorage.setItem("queueCoinov", JSON.stringify(arr));
@@ -239,7 +243,8 @@ function validateLocalQueue()
             }
             denarnicaOnChangeManual();
             //window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
-            window.localStorage.setItem("queueCoinov", false);
+            var arr = [];
+            window.localStorage.setItem("queueCoinov", arr);
             alert("Uspešno dodan/i coin!");
 
         }
