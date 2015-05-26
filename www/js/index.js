@@ -228,7 +228,7 @@ function validateLocalQueue()
     alert(coins);
     var temp_arr = JSON.parse(coins);
 
-    coins = "data=" + coins;
+    coins = "data=" + JSON.parse(coins);
 
     var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
     $.ajax({
