@@ -109,9 +109,9 @@ function gotFile(fileEntry) {
                     '<button class="gumb" id="login_wallet_confirm">Potrdi</button>' +
                     '</div>"';
             show_popup(s, false, false);
-            document.getElementById('nov_wallet_btn').addEventListener("touchend", preveriDekodiranje, false);
+            document.getElementById('login_wallet_confirm').addEventListener("touchend", preveriDekodiranje, false);
             document.getElementById('login_wallet_cancel').addEventListener("touchend", hide_popup, false);
-            
+
         };
         reader.readAsText(file);
     });
@@ -235,11 +235,13 @@ function show_popup(noter, height, width)
 
     document.getElementById('popup_general').innerHTML = noter;
     document.getElementById('popup_general').style.display = "block";
+    $("#popup_general").css("z-index", "15");
 }
 
 function hide_popup()
 {
     document.getElementById('popup_general').style.display = "none";
+    $("#popup_general").css("z-index", "-15");
 }
 
 function importWallet()
