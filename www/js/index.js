@@ -170,7 +170,8 @@ function startScan() {
                 var coin = result.text.toString();
 
                 coins.push(coin);
-                coins = "data=" + JSON.stringify(coins);
+                //coins = "data=" + JSON.stringify(coins);
+                coins = "data=" + coins;
 
                 var url = 'http://picoin-gm94.rhcloud.com/validateCoin';
                 $.ajax({
@@ -182,9 +183,7 @@ function startScan() {
                     //alert(data.status + " - " + data.message + " - " + data.coins[0]);
                     if (data.status === "ok")
                     {
-                        var s = data.coins[0];
-
-                        denarnica.coini.push(s);
+                        denarnica.coini.push(coin);
                         window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
                         alert("Uspešno dodan coin!");
                         denarnicaOnChangeManual();
