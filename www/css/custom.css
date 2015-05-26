@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 
 #popup_general{
+    z-index:15;
     display:none;
     position:absolute;
     left:10%;
