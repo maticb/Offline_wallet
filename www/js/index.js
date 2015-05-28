@@ -228,7 +228,7 @@ function validateLocalQueue()
     var coins = window.localStorage.getItem("queueCoinov");
 
     var temp_arr = JSON.parse(coins);
-    if (temp_arr.length > 0)
+    if (temp_arr.length <= 0 )
     {
         alert("Noben prejet coin ni v čakalni vrsti!");
     }
