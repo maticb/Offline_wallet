@@ -21,7 +21,16 @@ function denarnicaOnChangeManual()
      for (var i = 0; i < denarnica.coini.length; i++)
      s += denarnica.coini[i] + "<br/>";
      $("#output_coini").html(s);*/
-    $("#output_coini").html("Naloženih imaš " + denarnica.coini.length + " kovancev.");
+    var s = "";
+    if (denarnica.coini.length === 1)
+        s = "Naložen imaš 1 kovanec.";
+    if (denarnica.coini.length === 2)
+        s = "Naložena imaš 2 kovanca.";
+    if (denarnica.coini.length > 2 && denarnica.coini.length < 5)
+        s = "Naložene imaš " + denarnica.coini.length + " kovance.";
+    if (denarnica.coini.length > 4)
+        s = "Naloženih imaš " + denarnica.coini.length + " kovancev.";
+    $("#output_coini").html(s);
     denarnica_save = false;
     saveWallet();
 
