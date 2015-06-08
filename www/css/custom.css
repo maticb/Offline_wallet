@@ -117,7 +117,9 @@ and open the template in the editor.
 }
 
 #ozadje{
-     position: absolute; 
-     top: 50%; 
-     transform: translateY(-50%); 
+    margin-top:20px;
+}
+
+#output_coini{
+    text-align: center;
 }
