@@ -32,39 +32,42 @@ https://github.com/zhouhao/PhoneGap-QRCode
         <link rel="stylesheet" type="text/css" href="css/custom.css" />
 
         <link rel="stylesheet" type="text/css" href="css/file.css" />
-        <title>Offline Wallet</title>
+        <title>Denarnica</title>
     </head>
     <body>
-        <h1>Denarnica</h1> 
-        <button style="width:200px;height:100px;" id="startScan">Start Scan</button>
-        <button style="width:200px;height:100px;" id="qr_koda">QR KODA</button><br/>
-        <button style="width:200px;height:100px;" id="saveWallet">shrani wallet</button>
-        <button style="width:200px;height:100px;" id="nov_wallet_temp_btn">nov wallet</button><br/>
-        <button style="width:200px;height:100px;" id="uvozi_wallet_temp_btn">import wallet</button>
-        <button style="width:200px;height:100px;" id="dodaj_coin_temp_btn">dodaj coin</button>
-        <button style="width:200px;height:100px;" id="validate_queue">validiraj lokalne coine</button>
+        <div style="height:100%;overflow:hidden;">
+            <div id="container">
+            </div>
+            <div id="ozadje">
+                <h1>Denarnica</h1> 
+                <button class="gumb gumb_main" id="startScan">Skeniraj Coin</button>
+                <button class="gumb gumb_main"id="qr_koda">Ustvari QR kodo coina</button><br/>
+                <button class="gumb gumb_main" id="saveWallet">Shrani denarnico</button>
+                <button class="gumb gumb_main" id="nov_wallet_temp_btn">Nova denarnica</button><br/>
+                <button class="gumb gumb_main" id="uvozi_wallet_temp_btn">Uvozi denarnico</button>
+                <!-- <button style="width:200px;height:100px;" id="dodaj_coin_temp_btn">dodaj coin</button>
+                <button style="width:200px;height:100px;" id="validate_queue">validiraj lokalne coine</button>-->
 
 
 
-        <div id="output"></div>
-        <div style="margin-left:20px;" id="output2"></div>
+                <div id="output"></div>
+               <!-- <div style="margin-left:20px;" id="output2">
+                </div>-->
 
 
-        <div id="popup_overlay_hidden">
-        </div>
-        <div id="popup_general">
+                <div id="popup_overlay_hidden">
+                </div>
+                <div id="popup_general">
 
-        </div>
-
-        <div id="container">
+                </div>
 
 
 
-        </div>
+                <h1>Moji coini:</h1>
+                <div id="output_coini">
 
-        <h1>Moji coini:</h1>
-        <div id="output_coini">
-
+                </div>
+            </div>
         </div>
 
         <script type="text/javascript" src="js/kriptografija.js"></script>

@@ -19,6 +19,7 @@ function denarnicaOnChangeManual()
     for (var i = 0; i < denarnica.coini.length; i++)
         s += denarnica.coini[i] + "<br/>";
     $("#output_coini").html(s);
+    saveWallet();
 
 }
 
@@ -39,9 +40,9 @@ function init() {
     //PC DEBUGGING/TEMP
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
-    document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
+   // document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
     document.getElementById('uvozi_wallet_temp_btn').addEventListener("touchend", importWallet, false);
-    document.getElementById('validate_queue').addEventListener("touchend", validateLocalQueue, false);
+  //  document.getElementById('validate_queue').addEventListener("touchend", validateLocalQueue, false);
     //--
 
     var ustvarjen = window.localStorage.getItem("ustvarjen");
@@ -61,6 +62,9 @@ function init() {
         var arr = [];
         window.localStorage.setItem("queueCoinov", JSON.stringify(arr));
     }
+    
+    validateLocalQueue();
+    denarnicaOnChangeManual();
 }
 function wallet_ustvari_uvozi()
 {
@@ -228,9 +232,9 @@ function validateLocalQueue()
     var coins = window.localStorage.getItem("queueCoinov");
 
     var temp_arr = JSON.parse(coins);
-    if (temp_arr.length <= 0 )
+    if (temp_arr.length <= 0)
     {
-        alert("Noben prejet coin ni v čakalni vrsti!");
+       // alert("Noben prejet coin ni v čakalni vrsti!");
     }
     else
     {
@@ -260,7 +264,7 @@ function validateLocalQueue()
 
             }
         }).fail(function (a, b, c) {
-            alert("Napaka pri povezavi na strežnik: " + b + '|' + c);
+            alert("Poskus povezave na strežnik za validiranje coinov v čakalni vrsti, napaka: " + b + '|' + c);
 
         });
     }
@@ -273,9 +277,15 @@ function qr_create()
     if (denarnica.coini.length > 0)
     {
         qr_input = denarnica.coini[0];
-        denarnica.coini.splice(0, 1);
+            denarnica.coini.splice(0, 1);
         denarnicaOnChangeManual();
         //alert(qr_input);
+
+        hide_popup();
+        var s = "<div id=\"QR_create\"><div style=\"margin-left:20px;margin-top:20px;\" id=\"output2\"></div><br/><button class=\"gumb\" id=\"qr_koda_cncl\">Zapri</button></div>"
+        show_popup(s, false, false);
+        document.getElementById('qr_koda_cncl').addEventListener("touchend", hide_popup, false);
+
 
         var qrcode = new QRCode("output2");
         function makeCode() {
@@ -330,6 +340,7 @@ function importWallet()
     var fileSelector = new FileSelector(document.getElementById('container'), path, 'All files|*.*'); //Documents (html, txt)|*.htm;*.html;*.txt|
 
     $("#container").css("display", "block");
+    var ozadje = $("#ozadje").css("height");
 
     $("#container").css("z-index", "10");
 
@@ -348,7 +359,9 @@ function importWallet()
         if (r === true) {
             branje_file = path;
             readFile();
+            $("#ozadje").css("height", ozadje);
         }
+
 
 
 

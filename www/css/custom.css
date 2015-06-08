@@ -16,8 +16,8 @@ and open the template in the editor.
     top:10%;
     width:80%;
     height:80%;
-    border: 5px black dashed;
-    background-color: grey;
+    border: 5px white dashed;
+    background-color: lightblue;
     border-radius: 5px;
 
 }
@@ -108,3 +108,10 @@ and open the template in the editor.
     background-color:white;
 }
 
+
+
+.gumb_main{
+    margin-left:10%;
+    width:80%;
+    height:100px;
+}
