@@ -11,14 +11,17 @@ var denarnica = new wallet();
 var izpis = "matic";
 var qr_input = "";
 var branje_file = "";
+denarnica_save = false;
 
 function denarnicaOnChangeManual()
 {
+    
     window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
     var s = "";
     for (var i = 0; i < denarnica.coini.length; i++)
         s += denarnica.coini[i] + "<br/>";
     $("#output_coini").html(s);
+    denarnica_save = false;
     saveWallet();
 
 }
@@ -34,15 +37,15 @@ function init() {
 
     document.getElementById('qr_koda').addEventListener("touchend", qr_create, false);
     document.getElementById('startScan').addEventListener("touchend", startScan, false);
-    document.getElementById('saveWallet').addEventListener("touchend", saveWallet, false);
+    document.getElementById('saveWallet').addEventListener("touchend", saveWalletManual, false);
 
 
     //PC DEBUGGING/TEMP
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
-   // document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
+    // document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
     document.getElementById('uvozi_wallet_temp_btn').addEventListener("touchend", importWallet, false);
-  //  document.getElementById('validate_queue').addEventListener("touchend", validateLocalQueue, false);
+    //  document.getElementById('validate_queue').addEventListener("touchend", validateLocalQueue, false);
     //--
 
     var ustvarjen = window.localStorage.getItem("ustvarjen");
@@ -62,7 +65,7 @@ function init() {
         var arr = [];
         window.localStorage.setItem("queueCoinov", JSON.stringify(arr));
     }
-    
+
     validateLocalQueue();
     denarnicaOnChangeManual();
 }
@@ -93,7 +96,8 @@ function gotFileEntry(fileEntry) {
 
 function gotFileWriter(writer) {
     writer.write(izpis);
-    alert("Denarnica uspešno shranjena!");
+    if (denarnica_save === true)
+        alert("Denarnica uspešno shranjena!");
 }
 
 //---------------------------------
@@ -234,7 +238,7 @@ function validateLocalQueue()
     var temp_arr = JSON.parse(coins);
     if (temp_arr.length <= 0)
     {
-       // alert("Noben prejet coin ni v čakalni vrsti!");
+        // alert("Noben prejet coin ni v čakalni vrsti!");
     }
     else
     {
@@ -277,7 +281,7 @@ function qr_create()
     if (denarnica.coini.length > 0)
     {
         qr_input = denarnica.coini[0];
-            denarnica.coini.splice(0, 1);
+        denarnica.coini.splice(0, 1);
         denarnicaOnChangeManual();
         //alert(qr_input);
 
@@ -298,6 +302,12 @@ function qr_create()
 }
 //---------------------------------
 
+
+function saveWalletManual()
+{
+    denarnica_save = true;
+    saveWallet();
+}
 function saveWallet()
 {
     //denarnica.uname = "moj usernam";
@@ -340,7 +350,7 @@ function importWallet()
     var fileSelector = new FileSelector(document.getElementById('container'), path, 'All files|*.*'); //Documents (html, txt)|*.htm;*.html;*.txt|
 
     $("#container").css("display", "block");
-    var ozadje = $("#ozadje").css("height");
+
 
     $("#container").css("z-index", "10");
 
@@ -359,7 +369,7 @@ function importWallet()
         if (r === true) {
             branje_file = path;
             readFile();
-            $("#ozadje").css("height", ozadje);
+        
         }
 
 
