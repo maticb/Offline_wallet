@@ -115,3 +115,9 @@ and open the template in the editor.
     width:80%;
     height:100px;
 }
+
+#ozadje{
+     position: absolute; 
+     top: 50%; 
+     transform: translateY(-50%); 
+}

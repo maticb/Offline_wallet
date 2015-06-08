@@ -17,10 +17,11 @@ function denarnicaOnChangeManual()
 {
     
     window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
-    var s = "";
+    /*var s = "";
     for (var i = 0; i < denarnica.coini.length; i++)
         s += denarnica.coini[i] + "<br/>";
-    $("#output_coini").html(s);
+    $("#output_coini").html(s);*/
+     $("#output_coini").html("Naloženih imaš "+denarnica.coini.length+" coinov.");
     denarnica_save = false;
     saveWallet();
 
