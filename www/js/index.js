@@ -15,13 +15,13 @@ denarnica_save = false;
 
 function denarnicaOnChangeManual()
 {
-    
+
     window.localStorage.setItem("denarnica", JSON.stringify(denarnica));
     /*var s = "";
-    for (var i = 0; i < denarnica.coini.length; i++)
-        s += denarnica.coini[i] + "<br/>";
-    $("#output_coini").html(s);*/
-     $("#output_coini").html("Naloženih imaš "+denarnica.coini.length+" coinov.");
+     for (var i = 0; i < denarnica.coini.length; i++)
+     s += denarnica.coini[i] + "<br/>";
+     $("#output_coini").html(s);*/
+    $("#output_coini").html("Naloženih imaš " + denarnica.coini.length + " kovancev.");
     denarnica_save = false;
     saveWallet();
 
@@ -45,7 +45,7 @@ function init() {
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
     //document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
     // document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
-   // document.getElementById('uvozi_wallet_temp_btn').addEventListener("touchend", importWallet, false);
+    // document.getElementById('uvozi_wallet_temp_btn').addEventListener("touchend", importWallet, false);
     //  document.getElementById('validate_queue').addEventListener("touchend", validateLocalQueue, false);
     //--
 
@@ -283,7 +283,7 @@ function qr_create()
     {
         qr_input = denarnica.coini[0];
         denarnica.coini.splice(0, 1);
-        denarnicaOnChangeManual();
+
         //alert(qr_input);
 
         hide_popup();
@@ -297,10 +297,12 @@ function qr_create()
             qrcode.makeCode(qr_input.toString());
         }
         makeCode();
+        denarnicaOnChangeManual();
     }
     else
         alert("Za pošiljanje morate imeti vsaj 1 coin!");
 }
+
 //---------------------------------
 
 
@@ -370,7 +372,7 @@ function importWallet()
         if (r === true) {
             branje_file = path;
             readFile();
-        
+
         }
 
 
