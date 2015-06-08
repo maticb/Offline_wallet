@@ -42,9 +42,9 @@ function init() {
 
     //PC DEBUGGING/TEMP
     //document.getElementById('saveWallet').addEventListener("click", saveWallet, false);
-    document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
+    //document.getElementById('nov_wallet_temp_btn').addEventListener("touchend", createNewWallet, false);
     // document.getElementById('dodaj_coin_temp_btn').addEventListener("touchend", dodaj_coin_temp, false);
-    document.getElementById('uvozi_wallet_temp_btn').addEventListener("touchend", importWallet, false);
+   // document.getElementById('uvozi_wallet_temp_btn').addEventListener("touchend", importWallet, false);
     //  document.getElementById('validate_queue').addEventListener("touchend", validateLocalQueue, false);
     //--
 
